@@ -1,0 +1,113 @@
+/* styles.css */
+
+#wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  align-items: flex-start;
+  margin-top: 20px;
+}
+
+#a4-area {
+  width: 595px;
+  height: 842px;
+  border: 1px solid black;
+  display: inline-block;
+  vertical-align: top;
+  position: relative;
+}
+
+#header {
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+  padding: 10px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+#header input {
+  background-color: transparent;
+  color: #fff;
+  font-size: 24px;
+  font-weight: bold;
+  border: none;
+  outline: none;
+  width: 100%;
+}
+
+#logo-left,
+#logo-right {
+  width: 100px;
+  height: 100px;
+  position: absolute;
+  bottom: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#logo-left {
+  left: 20px;
+}
+
+#logo-right {
+  right: 20px;
+}
+
+#sidebar {
+  width: 200px;
+  margin-left: 20px;
+}
+
+#uploader-left,
+#uploader-right {
+  margin-top: 20px;
+}
+
+#uploader-left input[type="file"],
+#uploader-right input[type="file"] {
+  display: none;
+}
+
+#uploader-left label,
+#uploader-right label {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0072C6;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+#uploader-left label:hover,
+#uploader-right label:hover {
+  background-color: #005FA1;
+}
+
+.brand-button {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #fff;
+  color: black;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.brand-button img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  vertical-align: middle;
+}
