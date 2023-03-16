@@ -1,5 +1,25 @@
 /* styles.css */
 
+/* General */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  margin: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Wrapper */
 #wrapper {
   max-width: 1200px;
   margin: 0 auto;
@@ -8,6 +28,7 @@
   margin-top: 20px;
 }
 
+/* A4 Area */
 #a4-area {
   width: 595px;
   height: 842px;
@@ -17,8 +38,7 @@
   position: relative;
 }
 
-#header {
-  color: black;
+#a4-area-header {
   font-size: 24px;
   font-weight: bold;
   padding: 10px;
@@ -26,14 +46,15 @@
   text-align: center;
 }
 
-#header input {
+#a4-area-header input {
+  color: black;
   background-color: transparent;
-  color: #fff;
   font-size: 24px;
   font-weight: bold;
   border: none;
   outline: none;
   width: 100%;
+  text-align: center;
 }
 
 #logo-left,
@@ -55,6 +76,7 @@
   right: 20px;
 }
 
+/* Sidebar */
 #sidebar {
   width: 200px;
   margin-left: 20px;
@@ -92,22 +114,127 @@
 }
 
 .brand-button {
-  display: block;
-  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  width: 200px;
+  height: 50px;
+  margin: 10px;
   padding: 10px;
+  border: none;
   border-radius: 5px;
-  background-color: #fff;
-  color: black;
-  font-size: 16px;
-  font-weight: bold;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
   text-align: left;
-  text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  background-color: #f1f1f1;
+  cursor: pointer;
 }
 
 .brand-button img {
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
   margin-right: 10px;
-  vertical-align: middle;
+}
+
+.brand-button span {
+  display: inline-block;
+  width: 150px;
+  margin-left: 10px;
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.5;
+}
+
+/* Sections */
+#sections {
+position: absolute;
+top: 60px;
+bottom: 120px;
+left: 0;
+right: 0;
+}
+
+.section {
+height: calc(25% - 10px);
+width: 100%;
+background-color: #f2f2f2;
+margin-bottom: 10px;
+box-sizing: border-box;
+border: 1px solid black;
+overflow: hidden;
+position: relative;
+}
+
+.section:not(.empty) .delete {
+position: absolute;
+top: 5px;
+right: 5px;
+width: 20px;
+height: 20px;
+background-image: url("images/close.png");
+background-size: contain;
+background-repeat: no-repeat;
+background-position: center;
+cursor: pointer;
+}
+
+.section form {
+margin: 10px;
+}
+
+.section input {
+display: block;
+margin-bottom: 10px;
+padding: 5px;
+border-radius: 3px;
+border: none;
+box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.section input[type="submit"] {
+display: block;
+margin: 10px auto;
+padding: 5px 20px;
+border-radius: 3px;
+border: none;
+box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+background-color: #0072C6;
+color: #fff;
+font-size: 16px;
+font-weight: bold;
+text-align: center;
+text-decoration: none;
+cursor: pointer;
+}
+
+.section input[type="submit"]:hover {
+background-color: #005FA1;
+}
+
+.section.empty {
+background-color: #c7e5ff;
+}
+
+.section.empty .delete {
+display: none;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+#wrapper {
+flex-direction: column;
+}
+
+#sidebar {
+margin-left: 0;
+margin-top: 20px;
+order: 2;
+}
+
+#a4-area {
+order: 1;
+margin-right: 20px;
+margin-bottom: 20px;
 }

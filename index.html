@@ -1,89 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Printable Account Sheets</title>
-    <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Account Sheets</title>
+    <link rel="stylesheet" href="styles.css?v=1.1" />
   </head>
   <body>
     <div id="wrapper">
       <div id="a4-area">
         <div id="header">
-          <input type="text" value="Editable Header">
+          <input type="text" placeholder="Header" />
         </div>
-        <!-- A4 format area goes here -->
+        <div id="sections">
+          <div class="section"></div>
+          <div class="section"></div>
+          <div class="section"></div>
+          <div class="section"></div>
+        </div>
         <div id="logo-left"></div>
         <div id="logo-right"></div>
       </div>
       <div id="sidebar">
         <div id="uploader-left">
-          <label for="logo-input-left">Upload Logo (Left)</label>
-          <input type="file" id="logo-input-left">
+          <label for="logo-left-upload">Upload Left Logo</label>
+          <input type="file" id="logo-left-upload" accept="image/*" />
         </div>
         <div id="uploader-right">
-          <label for="logo-input-right">Upload Logo (Right)</label>
-          <input type="file" id="logo-input-right">
+          <label for="logo-right-upload">Upload Right Logo</label>
+          <input type="file" id="logo-right-upload" accept="image/*" />
         </div>
         <div id="brand-buttons">
-          <a href="#" class="brand-button">
-            <img src="images/google-logo.png" alt="Google logo">
-            Google
-          </a>
-          <a href="#" class="brand-button">
-            <img src="images/mcafee-logo.png" alt="McAfee logo">
-            McAfee
-          </a>
-          <a href="#" class="brand-button">
-            <img src="images/facebook-logo.png" alt="Facebook logo">
-            Facebook
-          </a>
-          <!-- Add more brand buttons here -->
+          <button class="brand-button" data-color="#0072C6">
+            <img src="images/google-logo.png" alt="Google" />
+            <span>Google</span>
+          </button>
+          <button class="brand-button" data-color="#C5192D">
+            <img src="images/microsoft-logo.png" alt="Microsoft" />
+            <span>Microsoft</span>
+          </button>
+          <button class="brand-button" data-color="#3b5998">
+            <img src="images/facebook-logo.png" alt="Facebook" />
+            <span>Facebook</span>
+          </button>
+          <button class="brand-button" data-color="#00aced">
+            <img src="images/twitter-logo.png" alt="Twitter" />
+            <span>Twitter</span>
+          </button>
+          <button class="brand-button" data-color="#0077b5">
+            <img src="images/linkedin-logo.png" alt="LinkedIn" />
+            <span>LinkedIn</span>
+          </button>
+          <button class="brand-button" data-color="#0072C6">
+            <img src="images/amazon-logo.png" alt="Amazon" />
+            <span>Amazon</span>
+          </button>
         </div>
       </div>
     </div>
-
-    <script>
-      // Get the logo elements and file input elements
-      const logoLeft = document.querySelector('#logo-left');
-      const logoRight = document.querySelector('#logo-right');
-      const logoInputLeft = document.querySelector('#logo-input-left');
-      const logoInputRight = document.querySelector('#logo-input-right');
-
-      // Add event listeners to the file input elements
-      logoInputLeft.addEventListener('change', function() {
-        // Get the selected file
-        const file = logoInputLeft.files[0];
-
-        // Check if a file was selected
-        if (file) {
-          const reader = new FileReader();
-
-          reader.addEventListener('load', function() {
-            // Set the background image of the logo element to the selected file
-            logoLeft.style.backgroundImage = `url(${reader.result})`;
-          });
-
-          // Read the selected file as a data URL
-          reader.readAsDataURL(file);
-        }
-      });
-
-      logoInputRight.addEventListener('change', function() {
-        // Get the selected file
-        const file = logoInputRight.files[0];
-
-        // Check if a file was selected
-        if (file) {
-          const reader = new FileReader();
-
-          reader.addEventListener('load', function() {
-            // Set the background image of the logo element to the selected file
-            logoRight.style.backgroundImage = `url(${reader.result})`;
-          });
-
-          // Read the selected file as a data URL
-          reader.readAsDataURL(file);
-        }
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
