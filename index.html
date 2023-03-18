@@ -10,11 +10,16 @@
         <div id="header">
           <input type="text" value="Editable Header">
         </div>
+        <div id="a4-content">
+          <!-- A4 format area goes here -->
+        </div>
         <!-- A4 format area goes here -->
+        <div id="sections-container"></div>
         <div id="logo-left"></div>
         <div id="logo-right"></div>
       </div>
       <div id="sidebar">
+        <button id="clear-sections">Clear Sections</button>
         <div id="uploader-left">
           <label for="logo-input-left">Upload Logo (Left)</label>
           <input type="file" id="logo-input-left">
@@ -36,54 +41,9 @@
             <img src="images/facebook-logo.png" alt="Facebook logo">
             Facebook
           </a>
-          <!-- Add more brand buttons here -->
-        </div>
       </div>
     </div>
-
-    <script>
-      // Get the logo elements and file input elements
-      const logoLeft = document.querySelector('#logo-left');
-      const logoRight = document.querySelector('#logo-right');
-      const logoInputLeft = document.querySelector('#logo-input-left');
-      const logoInputRight = document.querySelector('#logo-input-right');
-
-      // Add event listeners to the file input elements
-      logoInputLeft.addEventListener('change', function() {
-        // Get the selected file
-        const file = logoInputLeft.files[0];
-
-        // Check if a file was selected
-        if (file) {
-          const reader = new FileReader();
-
-          reader.addEventListener('load', function() {
-            // Set the background image of the logo element to the selected file
-            logoLeft.style.backgroundImage = `url(${reader.result})`;
-          });
-
-          // Read the selected file as a data URL
-          reader.readAsDataURL(file);
-        }
-      });
-
-      logoInputRight.addEventListener('change', function() {
-        // Get the selected file
-        const file = logoInputRight.files[0];
-
-        // Check if a file was selected
-        if (file) {
-          const reader = new FileReader();
-
-          reader.addEventListener('load', function() {
-            // Set the background image of the logo element to the selected file
-            logoRight.style.backgroundImage = `url(${reader.result})`;
-          });
-
-          // Read the selected file as a data URL
-          reader.readAsDataURL(file);
-        }
-      });
-    </script>
+    <script src="script.js"></script>
   </body>
 </html>
+

@@ -17,23 +17,46 @@
   position: relative;
 }
 
-#header {
-  color: black;
-  font-size: 24px;
-  font-weight: bold;
-  padding: 10px;
-  margin-bottom: 20px;
-  text-align: center;
-}
-
 #header input {
   background-color: transparent;
-  color: #fff;
+  color: black; /* Set the input color to black */
   font-size: 24px;
   font-weight: bold;
   border: none;
   outline: none;
   width: 100%;
+}
+
+#a4-content {
+  height: calc(100% - 140px); /* Height to fit 4 sections between header and logos */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.section {
+  flex: 1; /* Each section takes up equal space */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  background-color: white;
+  margin-bottom: 10px;
+  position: relative;
+  height: 167px;
+}
+
+.section-logo {
+  position: absolute;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+}
+
+.section:last-child {
+  margin-bottom: 0;
 }
 
 #logo-left,
@@ -53,6 +76,25 @@
 
 #logo-right {
   right: 20px;
+}
+
+#clear-sections {
+  background-color: #0072C6;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-left: 20px; /* Add margin-left for positioning */
+  margin-top: 20px; /* Add margin-top to position the button below the A4 area */
+}
+
+#clear-sections:hover {
+  background-color: #005FA1;
 }
 
 #sidebar {
@@ -90,7 +132,6 @@
 #uploader-right label:hover {
   background-color: #005FA1;
 }
-
 .brand-button {
   display: block;
   margin-bottom: 10px;
