@@ -21,14 +21,17 @@
   background-color: transparent;
   color: black; /* Set the input color to black */
   font-size: 24px;
+  margin-top: 20px;
+  margin-bottom: 20px;
   font-weight: bold;
   border: none;
   outline: none;
   width: 100%;
+  text-align: center;
 }
 
 #a4-content {
-  height: calc(100% - 140px); /* Height to fit 4 sections between header and logos */
+  height: calc(100% - 200px); /* Height to fit 4 sections between header and logos */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -39,12 +42,24 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid #ccc;
+  border: 0px solid #ccc;
   box-sizing: border-box;
   background-color: white;
   margin-bottom: 10px;
   position: relative;
   height: 167px;
+}
+
+.section label {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.section input {
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 5px;
 }
 
 .section-logo {
@@ -57,6 +72,16 @@
 
 .section:last-child {
   margin-bottom: 0;
+}
+
+.input-container {
+  position: absolute;
+  left: 100px;
+  top: 10px;
+}
+
+.input-container input {
+  margin-left: 5px;
 }
 
 #logo-left,
@@ -151,4 +176,62 @@
   height: 30px;
   margin-right: 10px;
   vertical-align: middle;
+}
+
+#print-button {
+  display: block;
+  margin-top: 20px;
+  padding: 10px;
+  border-radius: 5px;
+  background-color: #0072C6;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  text-decoration: none;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+}
+
+#print-button:hover {
+  background-color: #005FA1;
+}
+
+/* Print styles */
+@media print {
+  body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+
+  #a4-area {
+    box-sizing: border-box;
+    width: 210mm;
+    height: 297mm;
+    padding: 10mm 20mm;
+    margin: 0;
+    border: none;
+    page-break-after: always;
+    position: relative;
+  }
+
+  #wrapper,
+  #sidebar {
+    display: none;
+  }
+
+  #header {
+    margin-top: 0;
+  }
+
+  #logo-left,
+  #logo-right {
+    bottom: 10px;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact;
+  }
 }
