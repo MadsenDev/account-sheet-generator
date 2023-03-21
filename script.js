@@ -52,44 +52,75 @@ document.addEventListener('DOMContentLoaded', function() {
         section.appendChild(brandLogo);
   
         // Add a container for the input fields
-        const container = document.createElement('div');
-  container.style.display = 'flex';
-  container.style.flexDirection = 'column';
-  container.style.width = '80%';
-  container.style.marginLeft = '50px';
-
-  const emailLabel = document.createElement('label');
-  emailLabel.textContent = 'E-mail:';
-  emailLabel.style.display = 'inline-block';
-  emailLabel.style.width = '100px';
-
-  const emailInput = document.createElement('input');
-  emailInput.type = 'email';
-  emailInput.style.display = 'inline-block';
-  emailInput.style.marginLeft = '10px';
-
-  const emailDiv = document.createElement('div');
-  emailDiv.style.display = 'flex';
-  emailDiv.appendChild(emailLabel);
-  emailDiv.appendChild(emailInput);
-
-  const passwordLabel = document.createElement('label');
-  passwordLabel.textContent = 'Password:';
-  passwordLabel.style.display = 'inline-block';
-  passwordLabel.style.width = '100px';
-
-  const passwordInput = document.createElement('input');
-  passwordInput.type = 'password';
-  passwordInput.style.display = 'inline-block';
-  passwordInput.style.marginLeft = '10px';
-
-  const passwordDiv = document.createElement('div');
-  passwordDiv.style.display = 'flex';
-  passwordDiv.appendChild(passwordLabel);
-  passwordDiv.appendChild(passwordInput);
-
-  container.appendChild(emailDiv);
-  container.appendChild(passwordDiv);
+        if (this.id === 'PIN') {
+          const container = document.createElement('div');
+          container.style.display = 'flex';
+          container.style.flexDirection = 'column';
+          container.style.width = '80%';
+          container.style.marginLeft = '50px';
+  
+          const pinLabel = document.createElement('label');
+          pinLabel.textContent = 'PIN:';
+          pinLabel.style.display = 'inline-block';
+          pinLabel.style.width = '100px';
+  
+          const pinInput = document.createElement('input');
+          pinInput.type = 'text';
+          pinInput.style.display = 'inline-block';
+          pinInput.style.marginLeft = '10px';
+  
+          const pinDiv = document.createElement('div');
+          pinDiv.style.display = 'flex';
+          pinDiv.appendChild(pinLabel);
+          pinDiv.appendChild(pinInput);
+  
+          container.appendChild(pinDiv);
+  
+          section.appendChild(container);
+          a4Content.appendChild(section);
+        } else {
+          const container = document.createElement('div');
+          container.style.display = 'flex';
+          container.style.flexDirection = 'column';
+          container.style.width = '80%';
+          container.style.marginLeft = '50px';
+  
+          const emailLabel = document.createElement('label');
+          emailLabel.textContent = 'E-mail:';
+          emailLabel.style.display = 'inline-block';
+          emailLabel.style.width = '100px';
+  
+          const emailInput = document.createElement('input');
+          emailInput.type = 'email';
+          emailInput.style.display = 'inline-block';
+          emailInput.style.marginLeft = '10px';
+  
+          const emailDiv = document.createElement('div');
+          emailDiv.style.display = 'flex';
+          emailDiv.appendChild(emailLabel);
+          emailDiv.appendChild(emailInput);
+  
+          const passwordLabel = document.createElement('label');
+          passwordLabel.textContent = 'Password:';
+          passwordLabel.style.display = 'inline-block';
+          passwordLabel.style.width = '100px';
+  
+          const passwordInput = document.createElement('input');
+          passwordInput.type = 'password';
+          passwordInput.style.display = 'inline-block';
+          passwordInput.style.marginLeft = '10px';
+  
+          const passwordDiv = document.createElement('div');
+          passwordDiv.style.display = 'flex';
+          passwordDiv.appendChild(passwordLabel);
+          passwordDiv.appendChild(passwordInput);
+  
+          container.appendChild(emailDiv);
+          container.appendChild(passwordDiv);
+  
+          section.appendChild(container);
+          a4Content.appendChild(section);
+        }
 
         section.appendChild(container);
         a4Content.appendChild(section);
@@ -128,6 +159,10 @@ function convertInputsToText() {
       const textNode = document.createElement('span');
       textNode.className = 'print-text';
       textNode.textContent = input.value;
+      textNode.style.display = 'inline-block';
+      textNode.style.width = '100px';
+      textNode.style.position = 'relative';
+      textNode.style.top = '10px';
       input.parentNode.replaceChild(textNode, input);
     });
   }

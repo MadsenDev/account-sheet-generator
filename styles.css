@@ -8,6 +8,24 @@
   margin-top: 20px;
 }
 
+#site-logo {
+  width: 200px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-right: 20px;
+}
+#site-logo img {
+  width: 100%;
+}
+#site-logo h1 {
+  display: inline-block;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  font-size: 18px;
+}
+
 #a4-area {
   width: 595px;
   height: 842px;
@@ -20,7 +38,7 @@
 #header input {
   background-color: transparent;
   color: black; /* Set the input color to black */
-  font-size: 24px;
+  font-size: 40px;
   margin-top: 20px;
   margin-bottom: 20px;
   font-weight: bold;
@@ -44,7 +62,7 @@
   align-items: center;
   border: 0px solid #ccc;
   box-sizing: border-box;
-  background-color: white;
+  background-color: rgba(241, 241, 241, 0.5);
   margin-bottom: 10px;
   position: relative;
   height: 167px;
@@ -104,27 +122,37 @@
 }
 
 #clear-sections {
+  margin-top: 20px;
+}
+
+#clear-sections label {
+  display: block;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 5px;
   background-color: #0072C6;
   color: #fff;
   font-size: 16px;
   font-weight: bold;
-  padding: 10px;
-  border-radius: 5px;
-  border: none;
-  cursor: pointer;
-  outline: none;
+  text-align: center;
+  text-decoration: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  margin-left: 20px; /* Add margin-left for positioning */
-  margin-top: 20px; /* Add margin-top to position the button below the A4 area */
+  cursor: pointer;
+  width: 80%;
 }
 
-#clear-sections:hover {
+#clear-sections label:hover {
   background-color: #005FA1;
 }
 
-#sidebar {
+#right-sidebar {
   width: 200px;
   margin-left: 20px;
+}
+
+#left-sidebar {
+  width: 200px;
+  margin-right: 20px;
 }
 
 #uploader-left,
@@ -151,6 +179,7 @@
   text-decoration: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  width: 80%;
 }
 
 #uploader-left label:hover,
@@ -179,8 +208,12 @@
 }
 
 #print-button {
-  display: block;
   margin-top: 20px;
+}
+
+#print-button label {
+  display: block;
+  margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
   background-color: #0072C6;
@@ -191,9 +224,10 @@
   text-decoration: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
+  width: 80%;
 }
 
-#print-button:hover {
+#print-button label:hover {
   background-color: #005FA1;
 }
 
@@ -218,7 +252,11 @@
   }
 
   #wrapper,
-  #sidebar {
+  #right-sidebar {
+    display: none;
+  }
+
+  #left-sidebar {
     display: none;
   }
 
