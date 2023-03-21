@@ -35,7 +35,7 @@
   position: relative;
 }
 
-#header input {
+#header h1 {
   background-color: transparent;
   color: black; /* Set the input color to black */
   font-size: 40px;
