@@ -39,6 +39,11 @@ document.addEventListener('DOMContentLoaded', function() {
     brandButtons.forEach(button => {
       button.addEventListener('click', function(event) {
         event.preventDefault();
+
+        // Limit the number of sections to 4
+        if (a4Content.childElementCount >= 4) {
+          return;
+        }
   
         // Create a new section with the brand logo
         const section = document.createElement('div');
@@ -79,6 +84,17 @@ document.addEventListener('DOMContentLoaded', function() {
           section.appendChild(container);
           a4Content.appendChild(section);
         } else {
+          // Add a title for the section. The title is the same as the brand name
+          const sectionTitle = document.createElement('h2');
+          sectionTitle.textContent = this.querySelector('img').alt;
+          section.appendChild(sectionTitle);
+          // Make the title appear at the top center of the section
+          sectionTitle.style.position = 'absolute';
+          sectionTitle.style.top = '0';
+          sectionTitle.style.left = '50%';
+          sectionTitle.style.transform = 'translateX(-50%)';
+          // Make the title be all capital letters
+          sectionTitle.style.textTransform = 'uppercase';
           const container = document.createElement('div');
           container.style.display = 'flex';
           container.style.flexDirection = 'column';
@@ -176,5 +192,19 @@ function convertInputsToText() {
       input.value = textNode.textContent;
       textNode.parentNode.replaceChild(input, textNode);
     });
+  }
+
+  // Add a function to add a brand button permanently
+  function addBrandButton(brandName, brandLogo) {
+    const button = document.createElement('button');
+    button.className = 'brand-button';
+    button.id = brandName;
+  
+    const logo = document.createElement('img');
+    logo.src = brandLogo;
+    logo.alt = brandName;
+  
+    button.appendChild(logo);
+    brandButtonsContainer.appendChild(button);
   }
   });  

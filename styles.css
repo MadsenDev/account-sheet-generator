@@ -50,9 +50,7 @@
 
 #a4-content {
   height: calc(100% - 200px); /* Height to fit 4 sections between header and logos */
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  
 }
 
 .section {
@@ -62,10 +60,10 @@
   align-items: center;
   border: 0px solid #ccc;
   box-sizing: border-box;
-  background-color: rgba(241, 241, 241, 0.5);
+  background-color: rgba(241, 241, 241, 0.062);
   margin-bottom: 10px;
   position: relative;
-  height: 167px;
+  height: 145px;
 }
 
 .section label {
