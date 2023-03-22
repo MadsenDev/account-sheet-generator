@@ -193,18 +193,4 @@ function convertInputsToText() {
       textNode.parentNode.replaceChild(input, textNode);
     });
   }
-
-  // Add a function to add a brand button permanently
-  function addBrandButton(brandName, brandLogo) {
-    const button = document.createElement('button');
-    button.className = 'brand-button';
-    button.id = brandName;
-  
-    const logo = document.createElement('img');
-    logo.src = brandLogo;
-    logo.alt = brandName;
-  
-    button.appendChild(logo);
-    brandButtonsContainer.appendChild(button);
-  }
-  });  
+})();
