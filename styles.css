@@ -77,6 +77,7 @@
   margin-bottom: 10px;
   position: relative;
   height: 145px;
+  width: 100%;
 }
 
 .section label {
@@ -115,21 +116,23 @@
 
 #logo-left,
 #logo-right {
-  width: 100px;
+  width: 200px;
   height: 100px;
   position: absolute;
   bottom: 20px;
   background-size: contain;
   background-repeat: no-repeat;
-  background-position: center;
+  
 }
 
 #logo-left {
   left: 20px;
+  background-position: left;
 }
 
 #logo-right {
   right: 20px;
+  background-position: right;
 }
 
 #clear-sections {

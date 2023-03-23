@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  var headerText = document.querySelector('#header-text');
   const selectedUserType = getSelectedUserType();
   console.log("Selected user type:", selectedUserType);
     // Get the logo elements and file input elements
@@ -21,6 +22,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const leftSidebar = document.querySelector('#left-sidebar');
     // Fetch #brand-buttons
     const brandButtonDiv = document.querySelector('#brand-buttons');
+    // Get the brand buttons
+    const brandButtons = document.querySelectorAll('.brand-button');
+
+    var header = "Account Information";
+    var eMailText = "E-mail:";
+    var passwordText = "Password:";
   
     // Add event listeners to the file input elements
     logoInputLeft.addEventListener('change', function() {
@@ -52,32 +59,45 @@ document.addEventListener('DOMContentLoaded', function() {
         const selectedUserType = getSelectedUserType();
         // Add if statement to check if the selected user type is 'student'
         if (selectedUserType === 'user-type-universal') {
-          console.log("Universal selected");
+          header = "Account Information";
+          headerText.textContent = header;
+          // Remove logo backgrounds
+          logoRight.style.backgroundImage = '';
+          logoLeft.style.backgroundImage = '';
+          eMailText = "E-mail:";
+          passwordText = "Password:";
+          // Make all buttons visible
+          brandButtons.forEach(button => {
+            button.style.display = 'block';
+          });
         } else if (selectedUserType === 'user-type-elkjop') {
-          // Append a brand button to the right sidebar
-          const brandButton = document.createElement('button');
-          brandButton.className = 'brand-button';
-          brandButton.id = 'Elkjøp';
-          brandButton.style.display = 'flex';
-          brandButton.style.alignItems = 'center';
-          brandButton.style.marginBottom = '10px';
-          brandButton.style.padding = '10px';
-          brandButton.style.border = 'none';
-          brandButton.style.borderRadius = '5px';
-          brandButton.style.backgroundColor = '#f2f2f2';
-          brandButton.style.cursor = 'pointer';
-          brandButton.style.outline = 'none';
-          brandButton.style.transition = 'all 0.3s ease';
-          brandButton.addEventListener('mouseover', function() {
-            this.style.backgroundColor = '#e6e6e6';
+          header = "Kontoinformasjon";
+          headerText.textContent = header;
+          eMailText = "E-post:";
+          passwordText = "Passord:";
+          logoLeft.style.backgroundImage = `url(images/supportplus.png)`;
+          logoRight.style.backgroundImage = `url(images/elkjop-logo.png)`;
+          var brandsList = [
+            'Google',
+            'Jotta',
+            'McAfee',
+            'Microsoft',
+            'Apple',
+            'PIN',
+          ];
+
+          // Check brandButtons for brands from brandsList. Hide the ones that are not in the list
+          brandButtons.forEach(button => {
+            if (brandsList.includes(button.id)) {
+              button.style.display = 'block';
+            } else {
+              button.style.display = 'none';
+            }
           });
         }
         
       });
     });
-  
-    // Get the brand buttons
-    const brandButtons = document.querySelectorAll('.brand-button');
   
     // Add event listeners to the brand buttons
     brandButtons.forEach(button => {
@@ -99,20 +119,25 @@ document.addEventListener('DOMContentLoaded', function() {
         brandLogo.className = 'section-logo';
   
         section.appendChild(brandLogo);
+
+        // Add a title for the section. The title is the same as the brand name
+        const sectionTitle = document.createElement('h2');
+        sectionTitle.textContent = this.querySelector('img').alt;
+        if (getSelectedUserType() === 'user-type-elkjop') {
+          if (sectionTitle.textContent === 'Jotta') {
+            sectionTitle.textContent = 'Elkjøp Cloud';
+          }
+        }
+        section.appendChild(sectionTitle);
+        // Make the title appear at the top center of the section
+        sectionTitle.style.position = 'absolute';
+        sectionTitle.style.top = '0';
+        sectionTitle.style.left = '15%';
+        sectionTitle.style.transform = 'translateX(-50%)';
+        sectionTitle.style.fontSize = '20px';
   
         // Add a container for the input fields
         if (this.id === 'PIN') {
-          // Add a title for the section. The title is the same as the brand name
-          const sectionTitle = document.createElement('h2');
-          sectionTitle.textContent = this.querySelector('img').alt;
-          section.appendChild(sectionTitle);
-          // Make the title appear at the top center of the section
-          sectionTitle.style.position = 'absolute';
-          sectionTitle.style.top = '0';
-          sectionTitle.style.left = '50%';
-          sectionTitle.style.transform = 'translateX(-50%)';
-          // Make the title be all capital letters
-          sectionTitle.style.textTransform = 'uppercase';
           const container = document.createElement('div');
           container.style.display = 'flex';
           container.style.flexDirection = 'column';
@@ -139,17 +164,6 @@ document.addEventListener('DOMContentLoaded', function() {
           section.appendChild(container);
           a4Content.appendChild(section);
         } else {
-          // Add a title for the section. The title is the same as the brand name
-          const sectionTitle = document.createElement('h2');
-          sectionTitle.textContent = this.querySelector('img').alt;
-          section.appendChild(sectionTitle);
-          // Make the title appear at the top center of the section
-          sectionTitle.style.position = 'absolute';
-          sectionTitle.style.top = '0';
-          sectionTitle.style.left = '50%';
-          sectionTitle.style.transform = 'translateX(-50%)';
-          // Make the title be all capital letters
-          sectionTitle.style.textTransform = 'uppercase';
           const container = document.createElement('div');
           container.style.display = 'flex';
           container.style.flexDirection = 'column';
@@ -157,7 +171,7 @@ document.addEventListener('DOMContentLoaded', function() {
           container.style.marginLeft = '50px';
   
           const emailLabel = document.createElement('label');
-          emailLabel.textContent = 'E-mail:';
+          emailLabel.textContent = eMailText;
           emailLabel.style.display = 'inline-block';
           emailLabel.style.width = '100px';
   
@@ -172,7 +186,7 @@ document.addEventListener('DOMContentLoaded', function() {
           emailDiv.appendChild(emailInput);
   
           const passwordLabel = document.createElement('label');
-          passwordLabel.textContent = 'Password:';
+          passwordLabel.textContent = passwordText;
           passwordLabel.style.display = 'inline-block';
           passwordLabel.style.width = '100px';
   
@@ -192,9 +206,6 @@ document.addEventListener('DOMContentLoaded', function() {
           section.appendChild(container);
           a4Content.appendChild(section);
         }
-
-        section.appendChild(container);
-        a4Content.appendChild(section);
       });
     });
   
@@ -208,10 +219,12 @@ printButton.addEventListener('click', function() {
     convertInputsToText();
     // Create a new window
     const printWindow = window.open('', '_blank');
+
+    headerText.textContent = header;
   
     // Write the A4 area's content to the new window
     printWindow.document.write('<!DOCTYPE html><html><head><title>Printable Account Sheets</title><link rel="stylesheet" href="styles.css"></head><body>');
-    printWindow.document.write(document.querySelector('#a4-area').outerHTML);
+    printWindow.document.write(document.querySelector('#a4-area').innerHTML);
     printWindow.document.write('</body></html>');
   
     // Close the document and print the content
