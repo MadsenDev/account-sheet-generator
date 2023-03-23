@@ -1,13 +1,26 @@
 document.addEventListener('DOMContentLoaded', function() {
+
+  const selectedUserType = getSelectedUserType();
+  console.log("Selected user type:", selectedUserType);
     // Get the logo elements and file input elements
     const logoLeft = document.querySelector('#logo-left');
     const logoRight = document.querySelector('#logo-right');
     const logoInputLeft = document.querySelector('#logo-input-left');
     const logoInputRight = document.querySelector('#logo-input-right');
     const printButton = document.querySelector('#print-button');
+
+    // Get radio buttons from user-input
+    const radioButtons = document.getElementsByName('user-type');
+    const radioButtonsArray = Array.from(radioButtons);
   
     const a4Content = document.querySelector('#a4-content');
     const clearSectionsButton = document.querySelector('#clear-sections');
+    // Fetch #right-sidebar
+    const rightSidebar = document.querySelector('#right-sidebar');
+    // Fetch #left-sidebar
+    const leftSidebar = document.querySelector('#left-sidebar');
+    // Fetch #brand-buttons
+    const brandButtonDiv = document.querySelector('#brand-buttons');
   
     // Add event listeners to the file input elements
     logoInputLeft.addEventListener('change', function() {
@@ -30,6 +43,37 @@ document.addEventListener('DOMContentLoaded', function() {
         });
         reader.readAsDataURL(file);
       }
+    });
+
+    // Add event listeners to the radio buttons
+    radioButtonsArray.forEach(button => {
+      button.addEventListener('click', function() {
+        // Get the selected user type
+        const selectedUserType = getSelectedUserType();
+        // Add if statement to check if the selected user type is 'student'
+        if (selectedUserType === 'user-type-universal') {
+          console.log("Universal selected");
+        } else if (selectedUserType === 'user-type-elkjop') {
+          // Append a brand button to the right sidebar
+          const brandButton = document.createElement('button');
+          brandButton.className = 'brand-button';
+          brandButton.id = 'Elkjøp';
+          brandButton.style.display = 'flex';
+          brandButton.style.alignItems = 'center';
+          brandButton.style.marginBottom = '10px';
+          brandButton.style.padding = '10px';
+          brandButton.style.border = 'none';
+          brandButton.style.borderRadius = '5px';
+          brandButton.style.backgroundColor = '#f2f2f2';
+          brandButton.style.cursor = 'pointer';
+          brandButton.style.outline = 'none';
+          brandButton.style.transition = 'all 0.3s ease';
+          brandButton.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#e6e6e6';
+          });
+        }
+        
+      });
     });
   
     // Get the brand buttons
@@ -58,6 +102,17 @@ document.addEventListener('DOMContentLoaded', function() {
   
         // Add a container for the input fields
         if (this.id === 'PIN') {
+          // Add a title for the section. The title is the same as the brand name
+          const sectionTitle = document.createElement('h2');
+          sectionTitle.textContent = this.querySelector('img').alt;
+          section.appendChild(sectionTitle);
+          // Make the title appear at the top center of the section
+          sectionTitle.style.position = 'absolute';
+          sectionTitle.style.top = '0';
+          sectionTitle.style.left = '50%';
+          sectionTitle.style.transform = 'translateX(-50%)';
+          // Make the title be all capital letters
+          sectionTitle.style.textTransform = 'uppercase';
           const container = document.createElement('div');
           container.style.display = 'flex';
           container.style.flexDirection = 'column';
@@ -193,4 +248,18 @@ function convertInputsToText() {
       textNode.parentNode.replaceChild(input, textNode);
     });
   }
-})();
+
+  function getSelectedUserType() {
+    const radioButtons = document.getElementsByName("user-type");
+    let selectedValue;
+  
+    for (let i = 0; i < radioButtons.length; i++) {
+      if (radioButtons[i].checked) {
+        selectedValue = radioButtons[i].id;
+        break;
+      }
+    }
+  
+    return selectedValue;
+  }
+});

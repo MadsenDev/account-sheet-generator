@@ -267,6 +267,19 @@
   background-color: #005FA1;
 }
 
+/* Style user-type div with radio buttons */
+.user-type {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+/* Style radio buttons */
+.user-type input {
+  margin-right: 5px;
+}
+
 /* Print styles */
 @media print {
   body {
