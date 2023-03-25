@@ -83,6 +83,8 @@ document.addEventListener('DOMContentLoaded', function() {
             'McAfee',
             'Microsoft',
             'Apple',
+            'TelenorID',
+            'Online',
             'PIN',
           ];
 
