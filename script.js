@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
 
+  var sectionLimit = 5;
+
   var headerText = document.querySelector('#header-text');
   const selectedUserType = getSelectedUserType();
   console.log("Selected user type:", selectedUserType);
@@ -106,8 +108,8 @@ document.addEventListener('DOMContentLoaded', function() {
       button.addEventListener('click', function(event) {
         event.preventDefault();
 
-        // Limit the number of sections to 4
-        if (a4Content.childElementCount >= 4) {
+        // Limit the number of sections
+        if (a4Content.childElementCount >= sectionLimit) {
           return;
         }
   
