@@ -283,6 +283,44 @@
   margin-right: 5px;
 }
 
+.main-menu ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.main-menu > ul > li {
+  display: inline-block;
+  width: 100%;
+  position: relative;
+}
+
+.main-menu a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.submenu {
+  display: none;
+  position: absolute;
+  left: 200px;
+  top: 0;
+  min-width: 200px;
+  background-color: #f9f9f9;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.submenu a {
+  display: block;
+  padding: 10px;
+  text-decoration: none;
+}
+
+.main-menu li:hover > .submenu {
+  display: block;
+}
+
 /* Print styles */
 @media print {
   body {
