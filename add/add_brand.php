@@ -18,6 +18,7 @@ mysqli_stmt_bind_param($stmt, "bsbsi", $logo, $name, $info, $category, $active);
 // Execute the statement
 if (mysqli_stmt_execute($stmt)) {
     echo "Brand added successfully";
+    var_dump($logo);
 } else {
     echo "Error adding brand: " . mysqli_error($conn);
 }
