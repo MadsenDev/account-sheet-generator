@@ -435,30 +435,30 @@
           </nav>
 
           <?php
-// Establish a database connection
-$conn = mysqli_connect("localhost", "username", "password", "madsensd_acct");
+            // Establish a database connection
+            $conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
 
-// Prepare the SELECT statement
-$stmt = mysqli_prepare($conn, "SELECT `id`, `logo`, `name`, `info` FROM `brands`");
+            // Prepare the SELECT statement
+            $stmt = mysqli_prepare($conn, "SELECT `id`, `logo`, `name`, `info` FROM `brands`");
 
-// Execute the statement
-mysqli_stmt_execute($stmt);
+            // Execute the statement
+            mysqli_stmt_execute($stmt);
 
-// Bind the result variables
-mysqli_stmt_bind_result($stmt, $id, $logo, $name, $info);
+            // Bind the result variables
+            mysqli_stmt_bind_result($stmt, $id, $logo, $name, $info);
 
-// Loop through the results and generate the HTML
-while (mysqli_stmt_fetch($stmt)) {
-    echo '<a href="#" class="brand-button" id="' . $name . '">';
-    echo '<img src="data:image/png;base64,' . base64_encode($logo) . '" alt="' . $name . '">';
-    echo $name;
-    echo '</a>';
-}
+            // Loop through the results and generate the HTML
+            while (mysqli_stmt_fetch($stmt)) {
+                echo '<a href="#" class="brand-button" id="' . $name . '">';
+                echo '<img src="data:image/png;base64,' . base64_encode($logo) . '" alt="' . $name . '">';
+                echo $name;
+                echo '</a>';
+            }
 
-// Close the statement and the connection
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
-?>
+            // Close the statement and the connection
+            mysqli_stmt_close($stmt);
+            mysqli_close($conn);
+          ?>
 
           <a href="#" class="brand-button" id="Google">
             <img src="images/google-logo.png" alt="Google">
