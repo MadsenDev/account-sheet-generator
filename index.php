@@ -51,490 +51,109 @@
         <div id="logo-right"></div>
       </div>
       <div id="right-sidebar">
-        <div id="brand-buttons">
-
-          <nav class="main-menu">
-            <ul>
-              <li>
-                <a href="#" class="brand-button">
-                  E-mail
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Google">
-                    <img src="images/google-logo.png" alt="Google">
-                    Google
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Microsoft">
-                    <img src="images/microsoft-logo.png" alt="Microsoft">
-                    Microsoft
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Apple">
-                    <img src="images/apple-logo.png" alt="Apple">
-                    Apple
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Online">
-                    <img src="images/telenor-logo.png" alt="Online">
-                    Online
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Yahoo">
-                    <img src="images/yahoo-logo.png" alt="Yahoo">
-                    Yahoo
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Social Media
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Facebook">
-                    <img src="images/facebook-logo.png" alt="Facebook">
-                    Facebook
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Instagram">
-                    <img src="images/instagram-logo.png" alt="Instagram">
-                    Instagram
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Twitter">
-                    <img src="images/twitter-logo.png" alt="Twitter">
-                    Twitter
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="LinkedIn">
-                    <img src="images/linkedin-logo.png" alt="LinkedIn">
-                    LinkedIn
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Pinterest">
-                    <img src="images/pinterest-logo.png" alt="Pinterest">
-                    Pinterest
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Snapchat">
-                    <img src="images/snapchat-logo.png" alt="Snapchat">
-                    Snapchat
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="WhatsApp">
-                    <img src="images/whatsapp-logo.png" alt="WhatsApp">
-                    WhatsApp
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="YouTube">
-                    <img src="images/youtube-logo.png" alt="YouTube">
-                    YouTube
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Twitch">
-                    <img src="images/twitch-logo.png" alt="Twitch">
-                    Twitch
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Reddit">
-                    <img src="images/reddit-logo.png" alt="Reddit">
-                    Reddit
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Tumblr">
-                    <img src="images/tumblr-logo.png" alt="Tumblr">
-                    Tumblr
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Vimeo">
-                    <img src="images/vimeo-logo.png" alt="Vimeo">
-                    Vimeo
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Shopping
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Amazon">
-                    <img src="images/amazon-logo.png" alt="Amazon">
-                    Amazon
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="AliExpress">
-                    <img src="images/aliexpress-logo.png" alt="AliExpress">
-                    AliExpress
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="eBay">
-                    <img src="images/ebay-logo.png" alt="eBay">
-                    eBay
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="G2A">
-                    <img src="images/g2a-logo.png" alt="G2A">
-                    G2A
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Groupon">
-                    <img src="images/groupon-logo.png" alt="Groupon">
-                    Groupon
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="iTunes">
-                    <img src="images/itunes-logo.png" alt="iTunes">
-                    iTunes
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Steam">
-                    <img src="images/steam-logo.png" alt="Steam">
-                    Steam
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Wish">
-                    <img src="images/wish-logo.png" alt="Wish">
-                    Wish
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Walmart">
-                    <img src="images/walmart-logo.png" alt="Walmart">
-                    Walmart
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Wix">
-                    <img src="images/wix-logo.png" alt="Wix">
-                    Wix
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Yahoo">
-                    <img src="images/yahoo-logo.png" alt="Yahoo">
-                    Yahoo
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Gaming
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Battle.net">
-                    <img src="images/battlenet-logo.png" alt="Battle.net">
-                    Battle.net
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Epic Games">
-                    <img src="images/epicgames-logo.png" alt="Epic Games">
-                    Epic Games
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Origin">
-                    <img src="images/origin-logo.png" alt="Origin">
-                    Origin
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="PlayStation">
-                    <img src="images/playstation-logo.png" alt="PlayStation">
-                    PlayStation
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Riot Games">
-                    <img src="images/riotgames-logo.png" alt="Riot Games">
-                    Riot Games
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Steam">
-                    <img src="images/steam-logo.png" alt="Steam">
-                    Steam
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Twitch">
-                    <img src="images/twitch-logo.png" alt="Twitch">
-                    Twitch
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Xbox">
-                    <img src="images/xbox-logo.png" alt="Xbox">
-                    Xbox
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Services
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Uber">
-                    <img src="images/uber-logo.png" alt="Uber">
-                    Uber
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Airbnb">
-                    <img src="images/airbnb-logo.png" alt="Airbnb">
-                    Airbnb
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Lyft">
-                    <img src="images/lyft-logo.png" alt="Lyft">
-                    Lyft
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Online Storage
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Dropbox">
-                    <img src="images/dropbox-logo.png" alt="Dropbox">
-                    Dropbox
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="OneDrive">
-                    <img src="images/onedrive-logo.png" alt="OneDrive">
-                    OneDrive
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Google Drive">
-                    <img src="images/googledrive-logo.png" alt="Google Drive">
-                    Google Drive
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Box">
-                    <img src="images/box-logo.png" alt="Box">
-                    Box
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Jotta">
-                    <img src="images/jotta-logo.png" alt="Jotta">
-                    Jotta
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Streaming
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="Facebook">
-                    <img src="images/facebook-logo.png" alt="Facebook">
-                    Facebook
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="YouTube">
-                    <img src="images/youtube-logo.png" alt="YouTube">
-                    YouTube
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Netflix">
-                    <img src="images/netflix-logo.png" alt="Netflix">
-                    Netflix
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Spotify">
-                    <img src="images/spotify-logo.png" alt="Spotify">
-                    Spotify
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Tidal">
-                    <img src="images/tidal-logo.png" alt="Tidal">
-                    Tidal
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="SoundCloud">
-                    <img src="images/soundcloud-logo.png" alt="SoundCloud">
-                    SoundCloud
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Hulu">
-                    <img src="images/hulu-logo.png" alt="Hulu">
-                    Hulu
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Amazon Prime">
-                    <img src="images/amazon-logo.png" alt="Amazon Prime">
-                    Amazon Prime
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="HBO">
-                    <img src="images/hbo-logo.png" alt="HBO">
-                    HBO
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Disney+">
-                    <img src="images/disney-logo.png" alt="Disney+">
-                    Disney+
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Apple TV+">
-                    <img src="images/appletv-logo.png" alt="Apple TV+">
-                    Apple TV+
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="CBS All Access">
-                    <img src="images/cbs-logo.png" alt="CBS All Access">
-                    CBS All Access
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Crunchyroll">
-                    <img src="images/crunchyroll-logo.png" alt="Crunchyroll">
-                    Crunchyroll
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="HBO Max">
-                    <img src="images/hbo-logo.png" alt="HBO Max">
-                    HBO Max
-                  </a></li>
-                </ul>
-              </li>
-              <li>
-                <a href="#" class="brand-button">
-                  Anti-Virus
-                </a>
-                <ul class="submenu">
-                  <li><a href="#" class="brand-button" id="McAfee">
-                    <img src="images/mcafee-logo.png" alt="McAfee">
-                    McAfee
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Kaspersky">
-                    <img src="images/kaspersky-logo.png" alt="Kaspersky">
-                    Kaspersky
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Avast">
-                    <img src="images/avast-logo.png" alt="Avast">
-                    Avast
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Avira">
-                    <img src="images/avira-logo.png" alt="Avira">
-                    Avira
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Bitdefender">
-                    <img src="images/bitdefender-logo.png" alt="Bitdefender">
-                    Bitdefender
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Norton">
-                    <img src="images/norton-logo.png" alt="Norton">
-                    Norton
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="ESET">
-                    <img src="images/eset-logo.png" alt="ESET">
-                    ESET
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Panda">
-                    <img src="images/panda-logo.png" alt="Panda">
-                    Panda
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Comodo">
-                    <img src="images/comodo-logo.png" alt="Comodo">
-                    Comodo
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Sophos">
-                    <img src="images/sophos-logo.png" alt="Sophos">
-                    Sophos
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Trend Micro">
-                    <img src="images/trendmicro-logo.png" alt="Trend Micro">
-                    Trend Micro
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="F-Secure">
-                    <img src="images/fsecure-logo.png" alt="F-Secure">
-                    F-Secure
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="VIPRE">
-                    <img src="images/vipre-logo.png" alt="VIPRE">
-                    VIPRE
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Webroot">
-                    <img src="images/webroot-logo.png" alt="Webroot">
-                    Webroot
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="ZoneAlarm">
-                    <img src="images/zonealarm-logo.png" alt="ZoneAlarm">
-                    ZoneAlarm
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Malwarebytes">
-                    <img src="images/malwarebytes-logo.png" alt="Malwarebytes">
-                    Malwarebytes
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Emsisoft">
-                    <img src="images/antivirus-logo.png" alt="Emsisoft">
-                    Emsisoft
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="AVG">
-                    <img src="images/avg-logo.png" alt="AVG">
-                    AVG
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Dr.Web">
-                    <img src="images/drweb-logo.png" alt="Dr.Web">
-                    Dr.Web
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="G Data">
-                    <img src="images/gdata-logo.png" alt="G Data">
-                    G Data
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="K7">
-                    <img src="images/k7-logo.png" alt="K7">
-                    K7
-                  </a></li>
-                  <li><a href="#" class="brand-button" id="Quick Heal">
-                    <img src="images/quickheal-logo.png" alt="Quick Heal">
-                    Quick Heal
-                  </a></li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-
+        <div id="search">
+          <form id="search-form">
+          <input type="text" id="search-input" placeholder="Search brands...">
+          </form>
+        </div>
+        <div id="categories">
           <?php
-// Establish a database connection
-$conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
+            // Establish a database connection
+            $conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
 
-// Prepare the SELECT statement
-$stmt = mysqli_prepare($conn, "SELECT `id`, `logo_path`, `name`, `info` FROM `brands`");
+            // Get all categories
+            $sqlCategories = "SELECT id, name FROM categories ORDER BY name ASC";
+            $stmtCategories = mysqli_prepare($conn, $sqlCategories);
+            if ($stmtCategories === false) {
+                echo mysqli_error($conn);
+            }
+            else {
+                mysqli_stmt_execute($stmtCategories);
+                $resultCategories = mysqli_stmt_get_result($stmtCategories);
 
-// Execute the statement
-mysqli_stmt_execute($stmt);
+                // Display category checkboxes
+                while ($rowCategories = mysqli_fetch_assoc($resultCategories)) {
+                    $categoryId = $rowCategories["id"];
+                    $categoryName = $rowCategories["name"];
 
-// Bind the result variables
-mysqli_stmt_bind_result($stmt, $id, $logoPath, $name, $info);
+                    echo "<input type='checkbox' name='category_filter' id='$categoryName' value='$categoryId' checked>";
+                    echo "<label for='$categoryName'>$categoryName</label>";
+                }
 
-// Loop through the results and generate the HTML
-while (mysqli_stmt_fetch($stmt)) {
-    echo '<a href="#" class="brand-button" id="' . $name . '">';
-    echo '<img src="' . $logoPath . '" alt="' . $name . '">';
-    echo $name;
-    echo '</a>';
-}
+                mysqli_free_result($resultCategories);
+                mysqli_stmt_close($stmtCategories);
+            }
+          ?>
+        </div>
 
-// Close the statement and the connection
-mysqli_stmt_close($stmt);
-mysqli_close($conn);
+<?php
+  // Get all brands
+  $sqlBrands = "SELECT b.name, b.logo_path, b.category_id, c.name AS category_name FROM brands b JOIN categories c ON b.category_id = c.id ORDER BY c.name ASC, b.name ASC";
+  $stmtBrands = mysqli_prepare($conn, $sqlBrands);
+  if ($stmtBrands === false) {
+      echo mysqli_error($conn);
+  }
+  else {
+      mysqli_stmt_execute($stmtBrands);
+      $resultBrands = mysqli_stmt_get_result($stmtBrands);
+
+      // Display brand buttons
+      while ($rowBrands = mysqli_fetch_assoc($resultBrands)) {
+          $brandName = $rowBrands["name"];
+          $brandLogo = $rowBrands["logo_path"];
+          $brandCategoryId = $rowBrands["category_id"];
+          $brandCategoryName = $rowBrands["category_name"];
+
+          echo "<a href='#' class='brand-button' id='$brandName' data-category='$brandCategoryId'>";
+          echo "<img src='$brandLogo' alt='$brandName'>";
+          echo "$brandName";
+          echo "</a>";
+      }
+
+      mysqli_free_result($resultBrands);
+      mysqli_stmt_close($stmtBrands);
+  }
+
+  mysqli_close($conn);
 ?>
 
+<script>
+  // Get all category checkboxes and brand buttons
+  const categoryCheckboxes = document.querySelectorAll('input[name="category_filter"]');
+  const brandButtons = document.querySelectorAll('.brand-button');
 
-          <a href="#" class="brand-button" id="Google">
-            <img src="images/google-logo.png" alt="Google">
-            Google
-          </a>
-          <a href="#" class="brand-button" id="Microsoft">
-            <img src="images/microsoft-logo.png" alt="Microsoft">
-            Microsoft
-          </a>
-          <a href="#" class="brand-button" id="PIN">
-            <img src="images/office-logo.png" alt="Office License">
-            Office License
-          </a>
-          <a href="#" class="brand-button" id="Apple">
-            <img src="images/apple-logo.png" alt="Apple">
-            Apple
-          </a>
-          <a href="#" class="brand-button" id="McAfee">
-            <img src="images/mcafee-logo.png" alt="McAfee">
-            McAfee
-          </a>
-          <a href="#" class="brand-button" id="Jotta">
-            <img src="images/jotta-logo.png" alt="Jotta">
-            Jotta
-          </a>
-          <a href="#" class="brand-button" id="Facebook">
-            <img src="images/facebook-logo.png" alt="Facebook">
-            Facebook
-          </a>
-          <a href="#" class="brand-button" id="eBay">
-            <img src="images/ebay-logo.png" alt="eBay">
-            eBay 
-          </a>
-          <a href="#" class="brand-button" id="WordPress">
-            <img src="images/wordpress-logo.png" alt="WordPress">
-            WordPress
-          </a>
-          <a href="#" class="brand-button" id="Instagram">
-            <img src="images/instagram-logo.png" alt="Instagram">
-            Instagram
-          </a>
-          <a href="#" class="brand-button" id="Spotify">
-            <img src="images/spotify-logo.png" alt="Spotify">
-            Spotify
-          </a>
-          <a href="#" class="brand-button" id="Uber">
-            <img src="images/uber-logo.png" alt="Uber">
-            Uber
-          </a>
-          <a href="#" class="brand-button" id="Airbnb">
-            <img src="images/airbnb-logo.png" alt="Airbnb">
-            Airbnb
-          </a>
-          <a href="#" class="brand-button" id="Lyft">
-            <img src="images/lyft-logo.png" alt="Lyft">
-            Lyft
-          </a>
-          <a href="#" class="brand-button" id="TelenorID">
-            <img src="images/telenor-logo.png" alt="TelenorID">
-            TelenorID
-          </a>
-          <a href="#" class="brand-button" id="Online">
-            <img src="images/telenor-logo.png" alt="Online">
-            Online
-          </a>
-          <a href="#" class="brand-button" id="PIN">
-            <img src="images/pin-logo.png" alt="Screenlock Code">
-            Screenlock Code
-          </a>
-          <a href="#" class="brand-button" id="PIN">
-            <img src="images/sim-logo.png" alt="SIM PIN-Code">
-            SIM PIN-Code
-          </a>
+  // Add event listeners to category checkboxes
+  categoryCheckboxes.forEach(function(categoryCheckbox) {
+    categoryCheckbox.addEventListener('change', function() {
+      // Get the checked category IDs
+      const checkedCategoryIds = Array.from(categoryCheckboxes)
+        .filter(function(categoryCheckbox) {
+          return categoryCheckbox.checked;
+        })
+        .map(function(categoryCheckbox) {
+          return categoryCheckbox.value;
+        });
+
+      // Hide/show brand buttons based on category ID
+      brandButtons.forEach(function(brandButton) {
+        const brandCategoryId = brandButton.dataset.category;
+        if (checkedCategoryIds.includes(brandCategoryId)) {
+          brandButton.style.display = '';
+        } else {
+          brandButton.style.display = 'none';
+        }
+      });
+    });
+  });
+</script>
+
       </div>
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <script src="script.js"></script>
   </body>
 </html>

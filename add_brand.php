@@ -5,7 +5,7 @@ $conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acc
 // Get the form data
 $name = $_POST['name'];
 $info = $_POST['info'];
-$category = $_POST['category'];
+$category_id = $_POST['category_id'];
 $active = isset($_POST['active']) ? 1 : 0;
 
 // Handle the file upload
@@ -17,15 +17,15 @@ if (isset($_FILES['logo'])) {
 
     if (move_uploaded_file($file_tmp, $file_path)) {
         // Prepare the INSERT statement
-        $stmt = mysqli_prepare($conn, "INSERT INTO `brands` (`logo_path`, `name`, `info`, `category`, `active`) VALUES (?, ?, ?, ?, ?)");
+        $stmt = mysqli_prepare($conn, "INSERT INTO `brands` (`logo_path`, `name`, `info`, `category_id`, `active`) VALUES (?, ?, ?, ?, ?)");
 
         // Bind the parameters to the statement
-        mysqli_stmt_bind_param($stmt, "ssbsi", $file_path, $name, $info, $category, $active);
+        mysqli_stmt_bind_param($stmt, "ssisi", $file_path, $name, $info, $category_id, $active);
 
         // Execute the statement
         if (mysqli_stmt_execute($stmt)) {
-            echo "Brand added successfully";
-            echo "<a href='add.html'>Add another one</a>";
+            echo "Brand added successfully <br>";
+            echo "<a href='add.php'>Add another one</a>";
         } else {
             echo "Error adding brand: " . mysqli_error($conn);
         }

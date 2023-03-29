@@ -279,4 +279,30 @@ function convertInputsToText() {
   
     return selectedValue;
   }
+
+// Get the search input element
+const searchInput = document.getElementById("search-input");
+
+// Add an event listener to the search input to filter the list
+searchInput.addEventListener("input", () => {
+    // Get the value of the search input
+    const searchTerm = searchInput.value.toLowerCase();
+
+    // Get all the brand buttons
+    const brandButtons = document.querySelectorAll(".brand-button");
+
+    // Loop through the brand buttons and show/hide them based on the search term
+    brandButtons.forEach(brandButton => {
+        const brandName = brandButton.textContent.toLowerCase();
+        if (brandName.includes(searchTerm)) {
+            brandButton.style.display = "block";
+        } else {
+            brandButton.style.display = "none";
+        }
+    });
+});
+
+// Add an event listener to the search form to call the search function
+document.querySelector('#search-form').addEventListener('submit', handleSearchFormSubmit);
+
 });
