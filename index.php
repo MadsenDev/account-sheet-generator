@@ -27,7 +27,7 @@
           <label for="logo-input-right">Upload Logo (Right)</label>
           <input type="file" id="logo-input-right">
         </div>
-        <!--Add radio buttons to select who you're using the web-site as-->
+      <!--Add radio buttons to select who you're using the web-site as-->
         <div id="user-type">
           <label for="user-type">User Type</label>
           <div id="user-type-buttons">
@@ -53,52 +53,57 @@
       <div id="right-sidebar">
         <div id="search">
           <form id="search-form">
-          <input type="text" id="search-input" placeholder="Search brands...">
+            <input type="text" id="search-input" placeholder="Search brands...">
           </form>
         </div>
         <div id="categories">
+          <div id="category-buttons">
+            <button id="category-select-all">Select All</button>
+            <button id="category-unselect-all">Unselect All</button>
+          </div>
           <?php
-            // Establish a database connection
-            $conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
+          // Establish a database connection
+          $conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
 
-            // Get all categories
-            $sqlCategories = "SELECT id, name FROM categories ORDER BY name ASC";
-            $stmtCategories = mysqli_prepare($conn, $sqlCategories);
-            if ($stmtCategories === false) {
-                echo mysqli_error($conn);
-            }
-            else {
-                mysqli_stmt_execute($stmtCategories);
-                $resultCategories = mysqli_stmt_get_result($stmtCategories);
+          // Get all categories
+          $sqlCategories = "SELECT id, name FROM categories ORDER BY name ASC";
+          $stmtCategories = mysqli_prepare($conn, $sqlCategories);
+          if ($stmtCategories === false) {
+              echo mysqli_error($conn);
+          }
+          else {
+              mysqli_stmt_execute($stmtCategories);
+              $resultCategories = mysqli_stmt_get_result($stmtCategories);
 
-                // Display category checkboxes
-                while ($rowCategories = mysqli_fetch_assoc($resultCategories)) {
-                    $categoryId = $rowCategories["id"];
-                    $categoryName = $rowCategories["name"];
+              // Display category checkboxes
+              while ($rowCategories = mysqli_fetch_assoc($resultCategories)) {
+                  $categoryId = $rowCategories["id"];
+                  $categoryName = $rowCategories["name"];
 
-                    echo "<input type='checkbox' name='category_filter' id='$categoryName' value='$categoryId' checked>";
-                    echo "<label for='$categoryName'>$categoryName</label>";
-                }
+                  echo "<input type='checkbox' name='category_filter' id='$categoryName' value='$categoryId' checked>";
+                  echo "<label for='$categoryName'>$categoryName</label>";
+              }
 
-                mysqli_free_result($resultCategories);
-                mysqli_stmt_close($stmtCategories);
-            }
+              mysqli_free_result($resultCategories);
+              mysqli_stmt_close($stmtCategories);
+          }
           ?>
+
         </div>
+        <div id="brand-container" style="height: 560px; overflow: auto;">
+          <?php
+          // Get all brands
+          $sqlBrands = "SELECT b.name, b.logo_path, b.category_id, c.name AS category_name FROM brands b JOIN categories c ON b.category_id = c.id ORDER BY c.name ASC, b.name ASC";
+          $stmtBrands = mysqli_prepare($conn, $sqlBrands);
+          if ($stmtBrands === false) {
+          echo mysqli_error($conn);
+          }
+          else {
+          mysqli_stmt_execute($stmtBrands);
+          $resultBrands = mysqli_stmt_get_result($stmtBrands);
 
-<?php
-  // Get all brands
-  $sqlBrands = "SELECT b.name, b.logo_path, b.category_id, c.name AS category_name FROM brands b JOIN categories c ON b.category_id = c.id ORDER BY c.name ASC, b.name ASC";
-  $stmtBrands = mysqli_prepare($conn, $sqlBrands);
-  if ($stmtBrands === false) {
-      echo mysqli_error($conn);
-  }
-  else {
-      mysqli_stmt_execute($stmtBrands);
-      $resultBrands = mysqli_stmt_get_result($stmtBrands);
-
-      // Display brand buttons
-      while ($rowBrands = mysqli_fetch_assoc($resultBrands)) {
+          // Display brand buttons
+          while ($rowBrands = mysqli_fetch_assoc($resultBrands)) {
           $brandName = $rowBrands["name"];
           $brandLogo = $rowBrands["logo_path"];
           $brandCategoryId = $rowBrands["category_id"];
@@ -108,45 +113,70 @@
           echo "<img src='$brandLogo' alt='$brandName'>";
           echo "$brandName";
           echo "</a>";
-      }
+          }
 
-      mysqli_free_result($resultBrands);
-      mysqli_stmt_close($stmtBrands);
-  }
+          mysqli_free_result($resultBrands);
+          mysqli_stmt_close($stmtBrands);
+          }
 
-  mysqli_close($conn);
-?>
+          mysqli_close($conn);
+          ?>
+        </div>
+        
 
-<script>
-  // Get all category checkboxes and brand buttons
-  const categoryCheckboxes = document.querySelectorAll('input[name="category_filter"]');
-  const brandButtons = document.querySelectorAll('.brand-button');
+        <script>
+        // Get all category checkboxes and brand buttons
+        const categoryCheckboxes = document.querySelectorAll('input[name="category_filter"]');
+        const brandButtons = document.querySelectorAll('.brand-button');
 
-  // Add event listeners to category checkboxes
-  categoryCheckboxes.forEach(function(categoryCheckbox) {
-    categoryCheckbox.addEventListener('change', function() {
-      // Get the checked category IDs
-      const checkedCategoryIds = Array.from(categoryCheckboxes)
+        // Function to hide/show brand buttons based on checked categories
+        const updateBrandButtonDisplay = () => {
+        // Get the checked category IDs
+        const checkedCategoryIds = Array.from(categoryCheckboxes)
         .filter(function(categoryCheckbox) {
-          return categoryCheckbox.checked;
+        return categoryCheckbox.checked;
         })
         .map(function(categoryCheckbox) {
-          return categoryCheckbox.value;
+        return categoryCheckbox.value;
         });
 
-      // Hide/show brand buttons based on category ID
-      brandButtons.forEach(function(brandButton) {
+        // Hide/show brand buttons based on category ID
+        brandButtons.forEach(function(brandButton) {
         const brandCategoryId = brandButton.dataset.category;
         if (checkedCategoryIds.includes(brandCategoryId)) {
-          brandButton.style.display = '';
+        brandButton.style.display = '';
         } else {
-          brandButton.style.display = 'none';
+        brandButton.style.display = 'none';
         }
-      });
-    });
-  });
-</script>
+        });
+        };
 
+        // Add event listeners to category checkboxes
+        categoryCheckboxes.forEach(function(categoryCheckbox) {
+        categoryCheckbox.addEventListener('change', function() {
+        updateBrandButtonDisplay();
+        });
+        });
+
+        // Get the select all and unselect all buttons
+        const selectAllBtn = document.querySelector("#category-select-all");
+        const unselectAllBtn = document.querySelector("#category-unselect-all");
+
+        // Add event listeners to the buttons
+        selectAllBtn.addEventListener("click", () => {
+        categoryCheckboxes.forEach((checkbox) => {
+        checkbox.checked = true;
+        });
+        updateBrandButtonDisplay(); // call the function to update brand buttons display
+        });
+
+        unselectAllBtn.addEventListener("click", () => {
+        categoryCheckboxes.forEach((checkbox) => {
+        checkbox.checked = false;
+        });
+        updateBrandButtonDisplay(); // call the function to update brand buttons display
+        });
+        </script>
       </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -157,4 +187,3 @@
     <script src="script.js"></script>
   </body>
 </html>
-

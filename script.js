@@ -87,7 +87,9 @@ document.addEventListener('DOMContentLoaded', function() {
             'Apple',
             'TelenorID',
             'Online',
-            'PIN',
+            'Office',
+            'Lockscreen Code',
+            'SIM Code',
           ];
 
           // Check brandButtons for brands from brandsList. Hide the ones that are not in the list
@@ -107,6 +109,9 @@ document.addEventListener('DOMContentLoaded', function() {
     brandButtons.forEach(button => {
       button.addEventListener('click', function(event) {
         event.preventDefault();
+
+        // Get the category ID
+        const categoryId = this.dataset.category;
 
         // Limit the number of sections
         if (a4Content.childElementCount >= sectionLimit) {
@@ -141,7 +146,7 @@ document.addEventListener('DOMContentLoaded', function() {
         sectionTitle.style.fontSize = '20px';
   
         // Add a container for the input fields
-        if (this.id === 'PIN') {
+        if (categoryId === '9') {
           const container = document.createElement('div');
           container.style.display = 'flex';
           container.style.flexDirection = 'column';
@@ -150,6 +155,33 @@ document.addEventListener('DOMContentLoaded', function() {
   
           const pinLabel = document.createElement('label');
           pinLabel.textContent = 'PIN:';
+          pinLabel.style.display = 'inline-block';
+          pinLabel.style.width = '100px';
+  
+          const pinInput = document.createElement('input');
+          pinInput.type = 'text';
+          pinInput.style.display = 'inline-block';
+          pinInput.style.marginLeft = '10px';
+  
+          const pinDiv = document.createElement('div');
+          pinDiv.style.display = 'flex';
+          pinDiv.appendChild(pinLabel);
+          pinDiv.appendChild(pinInput);
+  
+          container.appendChild(pinDiv);
+  
+          section.appendChild(container);
+          a4Content.appendChild(section);
+
+        } else if (categoryId === '10') {
+          const container = document.createElement('div');
+          container.style.display = 'flex';
+          container.style.flexDirection = 'column';
+          container.style.width = '80%';
+          container.style.marginLeft = '50px';
+  
+          const pinLabel = document.createElement('label');
+          pinLabel.textContent = 'License:';
           pinLabel.style.display = 'inline-block';
           pinLabel.style.width = '100px';
   
@@ -304,5 +336,7 @@ searchInput.addEventListener("input", () => {
 
 // Add an event listener to the search form to call the search function
 document.querySelector('#search-form').addEventListener('submit', handleSearchFormSubmit);
+
+
 
 });
