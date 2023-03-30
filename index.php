@@ -178,6 +178,10 @@
         });
         </script>
       </div>
+
+    </div>
+    <div id="footer">
+      <p>Go to the source at <a href="https://github.com/MadsenDev/account-sheet-generator" target="_blank">GitHub</a></p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
