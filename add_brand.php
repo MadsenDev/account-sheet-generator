@@ -20,12 +20,20 @@ if (isset($_FILES['logo'])) {
         $stmt = mysqli_prepare($conn, "INSERT INTO `brands` (`logo_path`, `name`, `info`, `category_id`, `active`) VALUES (?, ?, ?, ?, ?)");
 
         // Bind the parameters to the statement
-        mysqli_stmt_bind_param($stmt, "ssisi", $file_path, $name, $info, $category_id, $active);
+        mysqli_stmt_bind_param($stmt, "sssii", $file_path, $name, $info, $category_id, $active);
 
         // Execute the statement
         if (mysqli_stmt_execute($stmt)) {
             echo "Brand added successfully <br>";
             echo "<a href='add.php'>Add another one</a>";
+            echo "<br><br>";
+            // Debugging: Print the received form data
+            echo "Received form data: <br>";
+            echo "Name: " . $name . "<br>";
+            echo "Info: " . $info . "<br>";
+            echo "Category ID: " . $category_id . "<br>";
+            echo "Active: " . $active . "<br>";
+
         } else {
             echo "Error adding brand: " . mysqli_error($conn);
         }
