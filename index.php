@@ -93,7 +93,7 @@
         <div id="brand-container" style="height: 560px; overflow: auto;">
           <?php
           // Get all brands
-          $sqlBrands = "SELECT b.name, b.logo_path, b.category_id, c.name AS category_name FROM brands b JOIN categories c ON b.category_id = c.id ORDER BY c.name ASC, b.name ASC";
+          $sqlBrands = "SELECT b.id, b.name, b.logo_path, b.category_id, c.name AS category_name, b.info FROM brands b JOIN categories c ON b.category_id = c.id ORDER BY c.name ASC, b.name ASC";
           $stmtBrands = mysqli_prepare($conn, $sqlBrands);
           if ($stmtBrands === false) {
           echo mysqli_error($conn);
@@ -104,12 +104,14 @@
 
           // Display brand buttons
           while ($rowBrands = mysqli_fetch_assoc($resultBrands)) {
+          $brandId = $rowBrands["id"];
           $brandName = $rowBrands["name"];
           $brandLogo = $rowBrands["logo_path"];
           $brandCategoryId = $rowBrands["category_id"];
           $brandCategoryName = $rowBrands["category_name"];
+          $brandInfo = $rowBrands["info"];
 
-          echo "<a href='#' class='brand-button' id='$brandName' data-category='$brandCategoryId'>";
+          echo "<a href='#' class='brand-button' id='$brandName' data-category='$brandCategoryId' data-id='$brandId'>";
           echo "<img src='$brandLogo' alt='$brandName'>";
           echo "$brandName";
           echo "</a>";

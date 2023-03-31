@@ -104,6 +104,12 @@ document.addEventListener('DOMContentLoaded', function() {
         
       });
     });
+
+    async function fetchInfo(id) {
+      const response = await fetch(`https://accountsheet.madsens.dev/fetch_info.php?id=${id}`);
+      const data = await response.json();
+      return data.info;
+    }    
   
     // Add event listeners to the brand buttons
     brandButtons.forEach(button => {
@@ -238,6 +244,18 @@ document.addEventListener('DOMContentLoaded', function() {
   
           container.appendChild(emailDiv);
           container.appendChild(passwordDiv);
+
+          // Fetch the info data from the API and append it to the section
+    const brandId = this.dataset.id; // Get the brand ID from the dataset
+    fetchInfo(brandId)
+      .then(infoData => {
+        const info = document.createElement('p');
+        info.textContent = infoData;
+        container.appendChild(info);
+      })
+      .catch(error => {
+        console.error('Error fetching info:', error);
+      });
   
           section.appendChild(container);
           a4Content.appendChild(section);
