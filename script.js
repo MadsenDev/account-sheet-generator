@@ -246,7 +246,7 @@ document.addEventListener('DOMContentLoaded', function() {
           container.appendChild(passwordDiv);
 
           // Fetch the info data from the API and append it to the section
-    const brandId = this.dataset.id; // Get the brand ID from the dataset
+    /*const brandId = this.dataset.id; // Get the brand ID from the dataset
     fetchInfo(brandId)
       .then(infoData => {
         const info = document.createElement('p');
@@ -255,7 +255,7 @@ document.addEventListener('DOMContentLoaded', function() {
       })
       .catch(error => {
         console.error('Error fetching info:', error);
-      });
+      });*/
   
           section.appendChild(container);
           a4Content.appendChild(section);
