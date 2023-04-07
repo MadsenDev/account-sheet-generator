@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get radio buttons from user-input
     const radioButtons = document.getElementsByName('user-type');
     const radioButtonsArray = Array.from(radioButtons);
-  
+    // Fetch #a4-content
     const a4Content = document.querySelector('#a4-content');
     const clearSectionsButton = document.querySelector('#clear-sections');
     // Fetch #right-sidebar
@@ -27,6 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Get the brand buttons
     const brandButtons = document.querySelectorAll('.brand-button');
 
+    // Strings for the header and input fields
     var header = "Account Information";
     var eMailText = "E-mail:";
     var passwordText = "Password:";
@@ -43,6 +44,7 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   
+    // Add event listeners to the file input elements
     logoInputRight.addEventListener('change', function() {
       const file = logoInputRight.files[0];
       if (file) {
@@ -59,7 +61,7 @@ document.addEventListener('DOMContentLoaded', function() {
       button.addEventListener('click', function() {
         // Get the selected user type
         const selectedUserType = getSelectedUserType();
-        // Add if statement to check if the selected user type is 'student'
+        // Check if the selected user type is universal or Elkjøp
         if (selectedUserType === 'user-type-universal') {
           header = "Account Information";
           headerText.textContent = header;
@@ -105,6 +107,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
 
+    // Get brand info from the database
     async function fetchInfo(id) {
       const response = await fetch(`https://accountsheet.madsens.dev/fetch_info.php?id=${id}`);
       const data = await response.json();
