@@ -130,6 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Create a new section with the brand logo
         const section = document.createElement('div');
         section.className = 'section';
+        section.style.width = '100%';
   
         const brandLogo = document.createElement('img');
         brandLogo.src = this.querySelector('img').src;
