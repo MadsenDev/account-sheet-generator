@@ -488,6 +488,13 @@
     bottom: 10px;
   }
 
+  .print-text {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    word-break: break-all;
+    hyphens: none;
+  }
+
   * {
     -webkit-print-color-adjust: exact;
   }

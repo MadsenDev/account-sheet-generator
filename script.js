@@ -248,18 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
   
           container.appendChild(emailDiv);
           container.appendChild(passwordDiv);
-
-          // Fetch the info data from the API and append it to the section
-    /*const brandId = this.dataset.id; // Get the brand ID from the dataset
-    fetchInfo(brandId)
-      .then(infoData => {
-        const info = document.createElement('p');
-        info.textContent = infoData;
-        container.appendChild(info);
-      })
-      .catch(error => {
-        console.error('Error fetching info:', error);
-      });*/
   
           section.appendChild(container);
           a4Content.appendChild(section);
@@ -274,51 +262,68 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Add an event listener to the print button
 printButton.addEventListener('click', function() {
-    convertInputsToText();
-    // Create a new window
-    const printWindow = window.open('', '_blank');
+  convertInputsToText();
+  
+  // Create a new window
+  const printWindow = window.open('', '_blank');
 
-    headerText.textContent = header;
-  
-    // Write the A4 area's content to the new window
-    printWindow.document.write('<!DOCTYPE html><html><head><title>Printable Account Sheets</title><link rel="stylesheet" href="styles.css"></head><body>');
-    printWindow.document.write(document.querySelector('#a4-area').innerHTML);
-    printWindow.document.write('</body></html>');
-  
-    // Close the document and print the content
-    printWindow.document.close();
-    setTimeout(() => {
-      printWindow.print();
-      printWindow.close();
-      convertTextToInputs();
-    }, 500);
-  });
+  headerText.textContent = header;
+
+  // Write the A4 area's content to the new window
+  printWindow.document.write('<!DOCTYPE html><html><head><title>Printable Account Sheets</title><link rel="stylesheet" href="styles.css"></head><body>');
+  printWindow.document.write(document.querySelector('#a4-area').innerHTML);
+  printWindow.document.write('</body></html>');
+
+  // Close the document and print the content
+  printWindow.document.close();
+  setTimeout(() => {
+    printWindow.print();
+    printWindow.close();
+    convertTextToInputs();
+  }, 500);
+
+  // Listen for the onbeforeunload event
+  printWindow.onbeforeunload = function() {
+    // Clear sections when the print window is closed
+    a4Content.innerHTML = '';
+  };
+});
   
   // Function to convert input fields to static text for printing
-function convertInputsToText() {
+  function convertInputsToText() {
     const inputs = a4Content.querySelectorAll('input');
     inputs.forEach(input => {
+      const container = document.createElement('div');
+      container.style.width = input.offsetWidth + 'px';
+      container.style.overflow = 'hidden';
+      container.style.display = 'inline-block';
+      
       const textNode = document.createElement('span');
       textNode.className = 'print-text';
       textNode.textContent = input.value;
-      textNode.style.display = 'inline-block';
-      textNode.style.width = '100px';
       textNode.style.position = 'relative';
       textNode.style.top = '10px';
-      input.parentNode.replaceChild(textNode, input);
+      
+      container.appendChild(textNode);
+      input.parentNode.replaceChild(container, input);
     });
-  }
+  }  
   
   // Function to convert static text back to input fields after printing
   function convertTextToInputs() {
-    const textNodes = a4Content.querySelectorAll('.print-text');
-    textNodes.forEach(textNode => {
-      const input = document.createElement('input');
-      input.type = textNode.previousSibling.type;
-      input.value = textNode.textContent;
-      textNode.parentNode.replaceChild(input, textNode);
+    const containers = a4Content.querySelectorAll('.input-container');
+    containers.forEach(container => {
+      const textNode = container.querySelector('.print-text');
+      if (textNode) {
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.value = textNode.textContent;
+        input.style.width = '100%';
+        input.style.boxSizing = 'border-box';
+        container.parentNode.replaceChild(input, container);
+      }
     });
-  }
+  }  
 
   function getSelectedUserType() {
     const radioButtons = document.getElementsByName("user-type");
