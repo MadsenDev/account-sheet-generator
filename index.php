@@ -1,3 +1,13 @@
+<?php
+require_once 'db.php';
+
+$user_types_query = "SELECT * FROM user_type";
+$user_types_result = mysqli_query($conn, $user_types_query);
+if (!$user_types_result) {
+  echo "Error: " . mysqli_error($conn);
+}
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -62,9 +72,6 @@
             <button id="category-unselect-all">Unselect All</button>
           </div>
           <?php
-          // Establish a database connection
-          $conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
-
           // Get all categories
           $sqlCategories = "SELECT id, name FROM categories ORDER BY name ASC";
           $stmtCategories = mysqli_prepare($conn, $sqlCategories);
