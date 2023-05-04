@@ -144,8 +144,8 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #0072C6;
-  color: #fff;
+  background-color: #b3d4fc;
+  color: #000000;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
@@ -156,7 +156,7 @@
 }
 
 #clear-sections label:hover {
-  background-color: #005FA1;
+  background-color: #90adcf;
 }
 
 
@@ -169,8 +169,8 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 5px;
-  background-color: #0072C6;
-  color: #fff;
+  background-color: #b3d4fc;
+  color: #000000;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
@@ -181,7 +181,7 @@
 }
 
 #add-brand label:hover {
-  background-color: #005FA1;
+  background-color: #90adcf;
 }
 
 #right-sidebar {
@@ -215,8 +215,8 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #0072C6;
-  color: #fff;
+  background-color: #b3d4fc;
+  color: #000000;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
@@ -228,7 +228,7 @@
 
 #uploader-left label:hover,
 #uploader-right label:hover {
-  background-color: #005FA1;
+  background-color: #90adcf;
 }
 
 #user-type {
@@ -259,12 +259,12 @@
 }
 
 #user-type-buttons input[type="radio"]:checked + label {
-  background-color: #007bff;
-  color: #fff;
+  background-color: #b3d4fc;
+  color: #000000;
 }
 
 #user-type-buttons input[type="radio"]:checked + label:hover {
-  background-color: #0069d9;
+  background-color: #90adcf;
 }
 
 .brand-button {
@@ -291,7 +291,7 @@
 .category-button {
   display: block;
   margin-bottom: 10px;
-  padding: 10px;
+  padding: 5px;
   border-radius: 5px;
   background-color: #fff;
   color: black;
@@ -309,7 +309,7 @@
 #categories label {
   display: inline-block;
   background-color: #f7f7f7;
-  padding: 10px 20px;
+  padding: 5px 5px;
   border-radius: 10px;
   margin: 5px;
   cursor: pointer;
@@ -396,8 +396,8 @@
   margin-bottom: 10px;
   padding: 10px;
   border-radius: 10px;
-  background-color: #0072C6;
-  color: #fff;
+  background-color: #b3d4fc;
+  color: #000000;
   font-size: 16px;
   font-weight: bold;
   text-align: center;
@@ -408,7 +408,7 @@
 }
 
 #print-button label:hover {
-  background-color: #005FA1;
+  background-color: #90adcf;
 }
 
 .main-menu ul {

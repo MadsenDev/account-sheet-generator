@@ -97,7 +97,7 @@ if (!$user_types_result) {
           ?>
 
         </div>
-        <div id="brand-container" style="height: 560px; overflow: auto;">
+        <div id="brand-container" style="height: 640px; overflow: auto;">
           <?php
           // Get all brands
           $sqlBrands = "SELECT b.id, b.name, b.logo_path, b.category_id, c.name AS category_name, b.info FROM brands b JOIN categories c ON b.category_id = c.id ORDER BY c.name ASC, b.name ASC";
