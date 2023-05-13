@@ -1,11 +1,8 @@
 <?php
 require_once 'db.php';
 
-$user_types_query = "SELECT * FROM user_type";
-$user_types_result = mysqli_query($conn, $user_types_query);
-if (!$user_types_result) {
-  echo "Error: " . mysqli_error($conn);
-}
+$user_type_query = "SELECT id, name, title FROM user_type";
+$result = mysqli_query($conn, $user_type_query);
 ?>
 
 <!DOCTYPE html>
@@ -38,15 +35,20 @@ if (!$user_types_result) {
           <input type="file" id="logo-input-right">
         </div>
       <!--Add radio buttons to select who you're using the web-site as-->
-        <div id="user-type">
-          <label for="user-type">User Type</label>
-          <div id="user-type-buttons">
-            <input type="radio" name="user-type" id="user-type-universal" value="universal" checked>
-            <label for="user-type-universal">Universal</label><br>
-            <input type="radio" name="user-type" id="user-type-elkjop" value="elkjop">
-            <label for="user-type-elkjop">Elkjøp (NO)</label>
-          </div>
+      <div id="user-type">
+        <label for="user-type">User Type</label>
+        <div id="user-type-buttons">
+          <?php
+          $first = true;
+          while ($row = mysqli_fetch_assoc($result)) {
+              $checked = $first ? 'checked' : '';
+              echo "<input type='radio' name='user-type' id='user-type-{$row['id']}' value='{$row['id']}' $checked>";
+              echo "<label for='user-type-{$row['id']}'>{$row['name']}</label><br>";
+              $first = false;
+          }
+          ?>
         </div>
+      </div>
       </div>
       <div id="a4-area">
         <div id="header">

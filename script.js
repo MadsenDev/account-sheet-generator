@@ -57,55 +57,55 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Add event listeners to the radio buttons
-    radioButtonsArray.forEach(button => {
-      button.addEventListener('click', function() {
-        // Get the selected user type
-        const selectedUserType = getSelectedUserType();
-        // Check if the selected user type is universal or Elkjøp
-        if (selectedUserType === 'user-type-universal') {
-          header = "Account Information";
-          headerText.textContent = header;
-          // Remove logo backgrounds
-          logoRight.style.backgroundImage = '';
-          logoLeft.style.backgroundImage = '';
-          eMailText = "E-mail:";
-          passwordText = "Password:";
-          // Make all buttons visible
-          brandButtons.forEach(button => {
-            button.style.display = 'block';
-          });
-        } else if (selectedUserType === 'user-type-elkjop') {
-          header = "Kontoinformasjon";
-          headerText.textContent = header;
-          eMailText = "E-post:";
-          passwordText = "Passord:";
-          logoLeft.style.backgroundImage = `url(images/supportplus.png)`;
-          logoRight.style.backgroundImage = `url(images/elkjop-logo.png)`;
-          var brandsList = [
-            'Google',
-            'Jotta',
-            'McAfee',
-            'Microsoft',
-            'Apple',
-            'TelenorID',
-            'Online',
-            'Office',
-            'Lockscreen Code',
-            'SIM Code',
-          ];
+radioButtonsArray.forEach(button => {
+  button.addEventListener('click', function() {
+    // Get the selected user type
+    const selectedUserType = getSelectedUserType();
 
-          // Check brandButtons for brands from brandsList. Hide the ones that are not in the list
-          brandButtons.forEach(button => {
-            if (brandsList.includes(button.id)) {
-              button.style.display = 'block';
-            } else {
-              button.style.display = 'none';
-            }
-          });
-        }
-        
+    if (selectedUserType === '2') {
+      header = "Account Information";
+      headerText.textContent = header;
+      // Remove logo backgrounds
+      logoRight.style.backgroundImage = '';
+      logoLeft.style.backgroundImage = '';
+      eMailText = "E-mail:";
+      passwordText = "Password:";
+      // Make all buttons visible
+      brandButtons.forEach(button => {
+        button.style.display = 'block';
       });
-    });
+    } else if (selectedUserType === '3') {
+      header = "Kontoinformasjon";
+      headerText.textContent = header;
+      eMailText = "E-post:";
+      passwordText = "Passord:";
+      logoLeft.style.backgroundImage = `url(images/supportplus.png)`;
+      logoRight.style.backgroundImage = `url(images/elkjop-logo.png)`;
+    }
+
+    // Using Fetch API with GET method
+    fetch(`fetch_brands.php?user_type=${selectedUserType}`)
+      .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then(brandsList => {
+        // Check brandButtons for brands from brandsList. Hide the ones that are not in the list
+        brandButtons.forEach(button => {
+            if (brandsList.includes(button.id)) {
+                button.style.display = 'block';
+            } else {
+                button.style.display = 'none';
+            }
+        });
+      })
+      .catch(e => {
+        console.log('There was a problem with your fetch operation: ' + e.message);
+      });
+  });
+});
 
     // Get brand info from the database
     async function fetchInfo(id) {
@@ -142,7 +142,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Add a title for the section. The title is the same as the brand name
         const sectionTitle = document.createElement('h2');
         sectionTitle.textContent = this.querySelector('img').alt;
-        if (getSelectedUserType() === 'user-type-elkjop') {
+        if (getSelectedUserType() === '3') {
           if (sectionTitle.textContent === 'Jotta') {
             sectionTitle.textContent = 'Elkjøp Cloud';
           }
@@ -331,13 +331,13 @@ printButton.addEventListener('click', function() {
   
     for (let i = 0; i < radioButtons.length; i++) {
       if (radioButtons[i].checked) {
-        selectedValue = radioButtons[i].id;
+        selectedValue = radioButtons[i].value;
         break;
       }
     }
   
     return selectedValue;
-  }
+}
 
 // Get the search input element
 const searchInput = document.getElementById("search-input");

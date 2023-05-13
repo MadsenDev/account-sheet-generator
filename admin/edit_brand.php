@@ -32,6 +32,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     mysqli_stmt_execute($stmt);
+    $user_types = isset($_POST['user_types']) ? $_POST['user_types'] : [];
+// Delete all existing rows for this brand
+$delete_query = "DELETE FROM user_brands WHERE brand_id = ?";
+$stmt = mysqli_prepare($conn, $delete_query);
+mysqli_stmt_bind_param($stmt, 'i', $id);
+mysqli_stmt_execute($stmt);
+
+// Re-add rows based on the checkboxes
+foreach ($user_types as $user_type_id) {
+    $insert_query = "INSERT INTO user_brands (brand_id, user_type_id) VALUES (?, ?)";
+    $stmt = mysqli_prepare($conn, $insert_query);
+    mysqli_stmt_bind_param($stmt, 'ii', $id, $user_type_id);
+    mysqli_stmt_execute($stmt);
+}
+
     header('Location: manage_brands.php');
     exit();
 }
@@ -50,6 +65,20 @@ $brand = mysqli_fetch_assoc(mysqli_stmt_get_result($stmt));
 
 $categories_query = "SELECT * FROM categories";
 $categories_result = mysqli_query($conn, $categories_query);
+
+$user_types_query = "SELECT * FROM user_type";
+$user_types_result = mysqli_query($conn, $user_types_query);
+$user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
+
+$brand_user_types_query = "SELECT user_type_id FROM user_brands WHERE brand_id = ?";
+$stmt = mysqli_prepare($conn, $brand_user_types_query);
+mysqli_stmt_bind_param($stmt, 'i', $brand_id);
+mysqli_stmt_execute($stmt);
+$brand_user_types_result = mysqli_stmt_get_result($stmt);
+$brand_user_types = [];
+while ($row = mysqli_fetch_assoc($brand_user_types_result)) {
+    $brand_user_types[] = $row['user_type_id'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,6 +130,17 @@ $categories_result = mysqli_query($conn, $categories_query);
             <br>
             <label>New Logo Preview:</label>
             <img id="logo-preview" src="#" alt="Logo preview" width="100" height="100" style="display: none;">
+            <br>
+            <label for="active">Active:</label>
+            <input type="checkbox" name="active" id="active" <?php echo $brand['active'] ? 'checked' : ''; ?>>
+            <br>
+            <label>User Types:</label>
+            <?php
+                foreach ($user_types_result as $user_type) {
+                    $checked = in_array($user_type['id'], $brand_user_types) ? 'checked' : '';
+                    echo '<input type="checkbox" name="user_types[]" value="' . $user_type['id'] . '" ' . $checked . '> ' . $user_type['name'] . '<br>';
+                }
+            ?>
             <br>
             <button type="submit">Save Changes</button>
         </form>
