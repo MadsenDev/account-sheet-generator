@@ -121,6 +121,9 @@ radioButtonsArray.forEach(button => {
 
         // Get the category ID
         const categoryId = this.dataset.category;
+        // Get the brand name
+        const brandName = this.querySelector('img').alt;
+        console.log("Brand name:", brandName);
 
         // Limit the number of sections
         if (a4Content.childElementCount >= sectionLimit) {
@@ -162,28 +165,98 @@ radioButtonsArray.forEach(button => {
           container.style.flexDirection = 'column';
           container.style.width = '80%';
           container.style.marginLeft = '50px';
-  
-          const pinLabel = document.createElement('label');
-          pinLabel.textContent = 'PIN:';
-          pinLabel.style.display = 'inline-block';
-          pinLabel.style.width = '100px';
-  
-          const pinInput = document.createElement('input');
-          pinInput.type = 'text';
-          pinInput.style.display = 'inline-block';
-          pinInput.style.marginLeft = '10px';
-  
-          const pinDiv = document.createElement('div');
-          pinDiv.style.display = 'flex';
-          pinDiv.appendChild(pinLabel);
-          pinDiv.appendChild(pinInput);
-  
-          container.appendChild(pinDiv);
-  
+      
+          if (brandName === 'Pattern') {
+              // Create elements for the pattern lock
+              const patternLock = document.createElement('div');
+              patternLock.id = 'patternLock';
+              console.log("Pattern lock created:", patternLock);
+      
+              for (let i = 0; i < 3; i++) {
+                const row = document.createElement('div');
+                row.className = 'row';
+                row.style.height = '20px';  // adjust as needed
+                row.style.backgroundColor = 'blue';  // or any color you like
+                for (let j = 0; j < 3; j++) {
+                    const dot = document.createElement('div');
+                    dot.className = 'dot';
+                    dot.id = `dot${i * 3 + j + 1}`;
+                    dot.style.width = '20px';
+                    dot.style.height = '20px';
+                    dot.style.backgroundColor = 'red';  // or any color you like
+                    row.appendChild(dot);
+                }
+                patternLock.appendChild(row);
+            }            
+      
+              container.appendChild(patternLock);
+              console.log("Pattern lock added to container:", container);
+      
+              // Add event listener for dots
+              var pattern = [];
+              var counter = 0;
+              var dots = patternLock.querySelectorAll('.dot');
+              dots.forEach(function(dot) {
+                  dot.addEventListener('click', function() {
+                      // Check if this dot has already been clicked
+                      if (this.dataset.order) {
+                          return;
+                      }
+              
+                      counter++;
+                      this.dataset.order = counter;
+                      this.style.backgroundColor = 'blue';
+              
+                      // Add this dot to the pattern
+                      pattern.push(this);
+              
+                      // If there's at least one other dot in the pattern, draw a line to it
+                      if (pattern.length > 1) {
+                          var previousDot = pattern[pattern.length - 2];
+                          drawLine(previousDot, this);
+                      }
+                  });
+              });
+      
+              function drawLine(dot1, dot2) {
+                  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                  var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+              
+                  svg.setAttribute('width', '100%');
+                  svg.setAttribute('height', '100%');
+              
+                  line.setAttribute('x1', dot1.offsetLeft);
+                  line.setAttribute('y1', dot1.offsetTop);
+                  line.setAttribute('x2', dot2.offsetLeft);
+                  line.setAttribute('y2', dot2.offsetTop);
+                  line.setAttribute('stroke', 'black');
+              
+                  svg.appendChild(line);
+                  patternLock.appendChild(svg);
+              }
+          } else {
+              // Create elements for the pin input
+              const pinLabel = document.createElement('label');
+              pinLabel.textContent = 'PIN:';
+              pinLabel.style.display = 'inline-block';
+              pinLabel.style.width = '100px';
+      
+              const pinInput = document.createElement('input');
+              pinInput.type = 'text';
+              pinInput.style.display = 'inline-block';
+              pinInput.style.marginLeft = '10px';
+      
+              const pinDiv = document.createElement('div');
+              pinDiv.style.display = 'flex';
+              pinDiv.appendChild(pinLabel);
+              pinDiv.appendChild(pinInput);
+      
+              container.appendChild(pinDiv);
+          }
+      
           section.appendChild(container);
           a4Content.appendChild(section);
-
-        } else if (categoryId === '10') {
+      } else if (categoryId === '10') {
           const container = document.createElement('div');
           container.style.display = 'flex';
           container.style.flexDirection = 'column';
