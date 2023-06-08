@@ -27,12 +27,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_bind_param($stmt, 'ssiss', $name, $info, $category_id, $active, $logo_path);
     mysqli_stmt_execute($stmt);
 
+    $brand_id = mysqli_insert_id($conn);
+    $user_types = isset($_POST['user_types']) ? $_POST['user_types'] : [];
+
+    // Associate the brand with user types
+    foreach ($user_types as $user_type_id) {
+        $insert_query = "INSERT INTO user_brands (brand_id, user_type_id) VALUES (?, ?)";
+        $stmt = mysqli_prepare($conn, $insert_query);
+        mysqli_stmt_bind_param($stmt, 'ii', $brand_id, $user_type_id);
+        mysqli_stmt_execute($stmt);
+    }
+
     header('Location: manage_brands.php');
     exit();
 }
 
 $categories_query = "SELECT * FROM categories";
 $categories_result = mysqli_query($conn, $categories_query);
+
+$user_types_query = "SELECT * FROM user_type";
+$user_types_result = mysqli_query($conn, $user_types_query);
+$user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -41,6 +56,7 @@ $categories_result = mysqli_query($conn, $categories_query);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Add Brand</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="add_edit_brand.css">
     <script>
         function previewLogo(input) {
             if (input.files && input.files[0]) {
@@ -83,6 +99,13 @@ $categories_result = mysqli_query($conn, $categories_query);
             <br>
             <label>Logo Preview:</label>
             <img id="logo-preview" src="#" alt="Logo preview" style="display: none; max-width: 200px; max-height: 200px;">
+            <br>
+            <label>User Types:</label>
+            <?php
+                foreach ($user_types_result as $user_type) {
+                    echo '<input type="checkbox" name="user_types[]" value="' . $user_type['id'] . '"> ' . $user_type['name'] . '<br>';
+                }
+            ?>
             <br>
             <button type="submit">Add Brand</button>
         </form>

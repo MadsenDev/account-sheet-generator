@@ -3,6 +3,7 @@
             <h3>Admin Panel</h3>
         </div>
         <ul class="sidebar-menu">
+            <li><a href="../index.php">Back To Site</a></li>
             <li><a href="dashboard.php">Dashboard</a></li>
             <li><a href="manage_brands.php">Manage Brands</a></li>
             <li><a href="manage_categories.php">Manage Categories</a></li>

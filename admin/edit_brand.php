@@ -87,6 +87,7 @@ while ($row = mysqli_fetch_assoc($brand_user_types_result)) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Brand</title>
     <link rel="stylesheet" href="admin.css">
+    <link rel="stylesheet" href="add_edit_brand.css">
     <script>
         function previewLogo(input) {
             if (input.files && input.files[0]) {
