@@ -310,7 +310,7 @@ radioButtonsArray.forEach(button => {
           passwordLabel.style.width = '100px';
   
           const passwordInput = document.createElement('input');
-          passwordInput.type = 'password';
+          passwordInput.type = 'text';
           passwordInput.style.display = 'inline-block';
           passwordInput.style.marginLeft = '10px';
   
