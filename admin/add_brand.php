@@ -38,6 +38,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_execute($stmt);
     }
 
+    // Insert the brand fields
+    $fields = $_POST['fields'];
+    foreach ($fields as $field) {
+        $label = $field['label'];
+        $type = $field['type'];
+        $order = $field['order'];
+
+        $insert_query = "INSERT INTO brand_fields (brand_id, label, type, `order`) VALUES (?, ?, ?, ?)";
+        $stmt = mysqli_prepare($conn, $insert_query);
+        mysqli_stmt_bind_param($stmt, 'isss', $brand_id, $label, $type, $order);
+        mysqli_stmt_execute($stmt);
+    }
+
     header('Location: manage_brands.php');
     exit();
 }
@@ -107,8 +120,63 @@ $user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
                 }
             ?>
             <br>
+            <label>Fields:</label>
+            <div id="fields-container"></div>
+            <button type="button" onclick="addField()">Add Field</button>
+            <br>
             <button type="submit">Add Brand</button>
         </form>
     </div>
+    <script>
+        let fieldCount = 0;
+
+        function addField() {
+            const container = document.getElementById('fields-container');
+
+            const field = document.createElement('div');
+            field.classList.add('field');
+
+            const label = document.createElement('label');
+            label.textContent = 'Label:';
+            field.appendChild(label);
+
+            const labelInput = document.createElement('input');
+            labelInput.type = 'text';
+            labelInput.name = `fields[${fieldCount}][label]`;
+            field.appendChild(labelInput);
+
+            const typeLabel = document.createElement('label');
+            typeLabel.textContent = 'Type:';
+            field.appendChild(typeLabel);
+
+            const typeSelect = document.createElement('select');
+            typeSelect.name = `fields[${fieldCount}][type]`;
+
+            const textOption = document.createElement('option');
+            textOption.value = 'text';
+            textOption.textContent = 'Text';
+            typeSelect.appendChild(textOption);
+
+            const numberOption = document.createElement('option');
+            numberOption.value = 'number';
+            numberOption.textContent = 'Number';
+            typeSelect.appendChild(numberOption);
+
+            field.appendChild(typeSelect);
+
+            const orderLabel = document.createElement('label');
+            orderLabel.textContent = 'Order:';
+            field.appendChild(orderLabel);
+
+            const orderInput = document.createElement('input');
+            orderInput.type = 'number';
+            orderInput.name = `fields[${fieldCount}][order]`;
+            field.appendChild(orderInput);
+
+            container.appendChild(field);
+
+            fieldCount++;
+        }
+    </script>
 </body>
 </html>
