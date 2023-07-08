@@ -1,10 +1,13 @@
 <?php
 session_start();
+require_once '../db.php';
+require_once 'functions.php';
 if (!isset($_SESSION['user_id'])) {
+    eventLog($conn, "Unauthorized access attempt to manage user types");
     header('Location: login.php');
 }
 
-require_once '../db.php';
+$user_id = $_SESSION['user_id']; // Get the user_id from the session
 
 $user_types_query = "SELECT * FROM user_type";
 $user_types_result = mysqli_query($conn, $user_types_query);

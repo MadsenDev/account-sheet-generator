@@ -4,19 +4,7 @@
   header('Content-Type: application/json');
   header('Access-Control-Allow-Origin: *');
 
-  // Database connection
-  $servername = "localhost";
-  $username = "madsensd_madsen";
-  $password = "data2023";
-  $dbname = "madsensd_acct";
-
-  // Create connection
-  $conn = new mysqli($servername, $username, $password, $dbname);
-
-  // Check connection
-  if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-  }
+  require_once('db.php');
 
   // Fetch data from database
   $id = intval($_GET['id']);

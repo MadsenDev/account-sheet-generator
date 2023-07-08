@@ -1,10 +1,13 @@
 <?php
 session_start();
+require_once '../db.php';
+require_once 'functions.php';
 if (!isset($_SESSION['user_id'])) {
+    eventLog($conn, "Unauthorized access attempt to manage brands");
     header('Location: login.php');
 }
 
-require_once '../db.php';
+$user_id = $_SESSION['user_id']; // Get the user_id from the session
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 

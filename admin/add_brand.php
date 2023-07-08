@@ -1,8 +1,13 @@
 <?php
 session_start();
+require_once '../db.php';
+require_once 'functions.php';
 if (!isset($_SESSION['user_id'])) {
+    eventLog($conn, "Unauthorized access attempt to add brand");
     header('Location: login.php');
 }
+
+$user_id = $_SESSION['user_id']; // Get the user_id from the session
 
 require_once '../db.php';
 
@@ -41,19 +46,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Insert the brand fields
     $fields = $_POST['fields'];
     foreach ($fields as $field) {
-        $label = $field['label'];
+        $label_id = $field['label_id'];
         $type = $field['type'];
         $order = $field['order'];
 
-        $insert_query = "INSERT INTO brand_fields (brand_id, label, type, `order`) VALUES (?, ?, ?, ?)";
+        $insert_query = "INSERT INTO brand_fields (brand_id, label_id, type, `order`) VALUES (?, ?, ?, ?)";
         $stmt = mysqli_prepare($conn, $insert_query);
-        mysqli_stmt_bind_param($stmt, 'isss', $brand_id, $label, $type, $order);
+        mysqli_stmt_bind_param($stmt, 'iisi', $brand_id, $label_id, $type, $order);
         mysqli_stmt_execute($stmt);
     }
+
+    eventLog($conn, "Brand added", $user_id);
 
     header('Location: manage_brands.php');
     exit();
 }
+
+$label_presets_query = "SELECT * FROM label_presets";
+$label_presets_result = mysqli_query($conn, $label_presets_query);
+$label_presets_result = mysqli_fetch_all($label_presets_result, MYSQLI_ASSOC);
 
 $categories_query = "SELECT * FROM categories";
 $categories_result = mysqli_query($conn, $categories_query);
@@ -114,11 +125,14 @@ $user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
             <img id="logo-preview" src="#" alt="Logo preview" style="display: none; max-width: 200px; max-height: 200px;">
             <br>
             <label>User Types:</label>
-            <?php
-                foreach ($user_types_result as $user_type) {
-                    echo '<input type="checkbox" name="user_types[]" value="' . $user_type['id'] . '"> ' . $user_type['name'] . '<br>';
-                }
-            ?>
+            <div id="user_types">
+                <?php
+                    foreach ($user_types_result as $user_type) {
+                        echo '<input type="checkbox" id="user_type_' . $user_type['id'] . '" name="user_types[]" value="' . $user_type['id'] . '">';
+                        echo '<label for="user_type_' . $user_type['id'] . '">' . $user_type['name'] . '</label><br>';
+                    }
+                ?>
+            </div>
             <br>
             <label>Fields:</label>
             <div id="fields-container"></div>
@@ -129,6 +143,7 @@ $user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
     </div>
     <script>
         let fieldCount = 0;
+        const labelPresets = <?php echo json_encode($label_presets_result); ?>;
 
         function addField() {
             const container = document.getElementById('fields-container');
@@ -140,10 +155,16 @@ $user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
             label.textContent = 'Label:';
             field.appendChild(label);
 
-            const labelInput = document.createElement('input');
-            labelInput.type = 'text';
-            labelInput.name = `fields[${fieldCount}][label]`;
-            field.appendChild(labelInput);
+            const labelSelect = document.createElement('select');
+            labelSelect.name = `fields[${fieldCount}][label_id]`;
+            field.appendChild(labelSelect);
+
+            labelPresets.forEach((labelPreset) => {
+                const option = document.createElement('option');
+                option.value = labelPreset.id;
+                option.textContent = labelPreset.label;
+                labelSelect.appendChild(option);
+            });
 
             const typeLabel = document.createElement('label');
             typeLabel.textContent = 'Type:';
@@ -171,6 +192,7 @@ $user_types_result = mysqli_fetch_all($user_types_result, MYSQLI_ASSOC);
             const orderInput = document.createElement('input');
             orderInput.type = 'number';
             orderInput.name = `fields[${fieldCount}][order]`;
+            orderInput.value = fieldCount + 1;
             field.appendChild(orderInput);
 
             container.appendChild(field);

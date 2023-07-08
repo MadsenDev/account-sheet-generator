@@ -8,6 +8,10 @@
             <li><a href="manage_brands.php">Manage Brands</a></li>
             <li><a href="manage_categories.php">Manage Categories</a></li>
             <li><a href="manage_user_type.php">Manage User Types</a></li>
+            <li><a href="manage_translations.php">Manage Translations</a></li>
+            <li><a href="manage_blocked.php">Manage Blocked</a></li>
+            <li><a href="event_logs.php">View Event Logs</a></li>
+            <li><a href="visit_logs.php">View Visit Logs</a></li>
             <!-- Add more menu items as needed -->
             <li><a href="logout.php">Logout</a></li>
         </ul>

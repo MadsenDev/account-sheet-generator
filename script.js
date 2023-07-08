@@ -43,6 +43,13 @@ document.addEventListener('DOMContentLoaded', function() {
         reader.readAsDataURL(file);
       }
     });
+
+    let selectedLanguage = '2'; // Set default language as English
+
+    document.getElementById('language-select').addEventListener('change', function() {
+      selectedLanguage = this.value;
+      console.log(selectedLanguage);
+    });
   
     // Add event listeners to the file input elements
     logoInputRight.addEventListener('change', function() {
@@ -114,219 +121,106 @@ radioButtonsArray.forEach(button => {
       return data.info;
     }    
   
-    // Add event listeners to the brand buttons
     brandButtons.forEach(button => {
       button.addEventListener('click', function(event) {
-        event.preventDefault();
+          event.preventDefault();
 
-        // Get the category ID
-        const categoryId = this.dataset.category;
-        // Get the brand name
-        const brandName = this.querySelector('img').alt;
-        console.log("Brand name:", brandName);
+          console.log(button.dataset.id);
 
-        // Limit the number of sections
-        if (a4Content.childElementCount >= sectionLimit) {
-          return;
-        }
+          const brandId = button.dataset.id;
   
-        // Create a new section with the brand logo
-        const section = document.createElement('div');
-        section.className = 'section';
-        section.style.width = '100%';
-  
-        const brandLogo = document.createElement('img');
-        brandLogo.src = this.querySelector('img').src;
-        brandLogo.alt = this.querySelector('img').alt;
-        brandLogo.className = 'section-logo';
-  
-        section.appendChild(brandLogo);
-
-        // Add a title for the section. The title is the same as the brand name
-        const sectionTitle = document.createElement('h2');
-        sectionTitle.textContent = this.querySelector('img').alt;
-        if (getSelectedUserType() === '3') {
-          if (sectionTitle.textContent === 'Jotta') {
-            sectionTitle.textContent = 'Elkjøp Cloud';
+          // Limit the number of sections
+          if (a4Content.childElementCount >= sectionLimit) {
+              return;
           }
-        }
-        section.appendChild(sectionTitle);
-        // Make the title appear at the top center of the section
+  
+          // Create a new section with the brand logo
+          const section = document.createElement('div');
+          section.className = 'section';
+          section.style.width = '100%';
+  
+          const brandLogo = document.createElement('img');
+          brandLogo.src = this.querySelector('img').src;
+          brandLogo.alt = this.querySelector('img').alt;
+          brandLogo.className = 'section-logo';
+  
+          section.appendChild(brandLogo);
+  
+          // Add a title for the section. The title is the same as the brand name
+          const sectionTitle = document.createElement('h2');
+          sectionTitle.textContent = this.querySelector('img').alt;
+  
+          // If you have specific title replacements based on user type or brand, you can still do that here.
+          if (getSelectedUserType() === '3') {
+              if (sectionTitle.textContent === 'Jotta') {
+                  sectionTitle.textContent = 'Elkjøp Cloud';
+              }
+          }
+  
+          section.appendChild(sectionTitle);
+          // Make the title appear at the top center of the section
         sectionTitle.style.position = 'absolute';
         sectionTitle.style.top = '0';
         sectionTitle.style.left = '15%';
         sectionTitle.style.transform = 'translateX(-50%)';
         sectionTitle.style.fontSize = '20px';
+
+          console.log(brandId);
   
-        // Add a container for the input fields
-        if (categoryId === '9') {
-          const container = document.createElement('div');
-          container.style.display = 'flex';
-          container.style.flexDirection = 'column';
-          container.style.width = '80%';
-          container.style.marginLeft = '50px';
-      
-          if (brandName === 'Pattern') {
-              // Create elements for the pattern lock
-              const patternLock = document.createElement('div');
-              patternLock.id = 'patternLock';
-              console.log("Pattern lock created:", patternLock);
-      
-              for (let i = 0; i < 3; i++) {
-                const row = document.createElement('div');
-                row.className = 'row';
-                row.style.height = '20px';  // adjust as needed
-                row.style.backgroundColor = 'blue';  // or any color you like
-                for (let j = 0; j < 3; j++) {
-                    const dot = document.createElement('div');
-                    dot.className = 'dot';
-                    dot.id = `dot${i * 3 + j + 1}`;
-                    dot.style.width = '20px';
-                    dot.style.height = '20px';
-                    dot.style.backgroundColor = 'red';  // or any color you like
-                    row.appendChild(dot);
-                }
-                patternLock.appendChild(row);
-            }            
-      
-              container.appendChild(patternLock);
-              console.log("Pattern lock added to container:", container);
-      
-              // Add event listener for dots
-              var pattern = [];
-              var counter = 0;
-              var dots = patternLock.querySelectorAll('.dot');
-              dots.forEach(function(dot) {
-                  dot.addEventListener('click', function() {
-                      // Check if this dot has already been clicked
-                      if (this.dataset.order) {
-                          return;
-                      }
-              
-                      counter++;
-                      this.dataset.order = counter;
-                      this.style.backgroundColor = 'blue';
-              
-                      // Add this dot to the pattern
-                      pattern.push(this);
-              
-                      // If there's at least one other dot in the pattern, draw a line to it
-                      if (pattern.length > 1) {
-                          var previousDot = pattern[pattern.length - 2];
-                          drawLine(previousDot, this);
-                      }
-                  });
-              });
-      
-              function drawLine(dot1, dot2) {
-                  var svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-                  var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-              
-                  svg.setAttribute('width', '100%');
-                  svg.setAttribute('height', '100%');
-              
-                  line.setAttribute('x1', dot1.offsetLeft);
-                  line.setAttribute('y1', dot1.offsetTop);
-                  line.setAttribute('x2', dot2.offsetLeft);
-                  line.setAttribute('y2', dot2.offsetTop);
-                  line.setAttribute('stroke', 'black');
-              
-                  svg.appendChild(line);
-                  patternLock.appendChild(svg);
-              }
-          } else {
-              // Create elements for the pin input
-              const pinLabel = document.createElement('label');
-              pinLabel.textContent = 'PIN:';
-              pinLabel.style.display = 'inline-block';
-              pinLabel.style.width = '100px';
-      
-              const pinInput = document.createElement('input');
-              pinInput.type = 'text';
-              pinInput.style.display = 'inline-block';
-              pinInput.style.marginLeft = '10px';
-      
-              const pinDiv = document.createElement('div');
-              pinDiv.style.display = 'flex';
-              pinDiv.appendChild(pinLabel);
-              pinDiv.appendChild(pinInput);
-      
-              container.appendChild(pinDiv);
-          }
-      
-          section.appendChild(container);
-          a4Content.appendChild(section);
-      } else if (categoryId === '10') {
-          const container = document.createElement('div');
-          container.style.display = 'flex';
-          container.style.flexDirection = 'column';
-          container.style.width = '80%';
-          container.style.marginLeft = '50px';
   
-          const pinLabel = document.createElement('label');
-          pinLabel.textContent = 'License:';
-          pinLabel.style.display = 'inline-block';
-          pinLabel.style.width = '100px';
-  
-          const pinInput = document.createElement('input');
-          pinInput.type = 'text';
-          pinInput.style.display = 'inline-block';
-          pinInput.style.marginLeft = '10px';
-  
-          const pinDiv = document.createElement('div');
-          pinDiv.style.display = 'flex';
-          pinDiv.appendChild(pinLabel);
-          pinDiv.appendChild(pinInput);
-  
-          container.appendChild(pinDiv);
-  
-          section.appendChild(container);
-          a4Content.appendChild(section);
-        } else {
-          const container = document.createElement('div');
-          container.style.display = 'flex';
-          container.style.flexDirection = 'column';
-          container.style.width = '80%';
-          container.style.marginLeft = '50px';
-  
-          const emailLabel = document.createElement('label');
-          emailLabel.textContent = eMailText;
-          emailLabel.style.display = 'inline-block';
-          emailLabel.style.width = '100px';
-  
-          const emailInput = document.createElement('input');
-          emailInput.type = 'email';
-          emailInput.style.display = 'inline-block';
-          emailInput.style.marginLeft = '10px';
-  
-          const emailDiv = document.createElement('div');
-          emailDiv.style.display = 'flex';
-          emailDiv.appendChild(emailLabel);
-          emailDiv.appendChild(emailInput);
-  
-          const passwordLabel = document.createElement('label');
-          passwordLabel.textContent = passwordText;
-          passwordLabel.style.display = 'inline-block';
-          passwordLabel.style.width = '100px';
-  
-          const passwordInput = document.createElement('input');
-          passwordInput.type = 'text';
-          passwordInput.style.display = 'inline-block';
-          passwordInput.style.marginLeft = '10px';
-  
-          const passwordDiv = document.createElement('div');
-          passwordDiv.style.display = 'flex';
-          passwordDiv.appendChild(passwordLabel);
-          passwordDiv.appendChild(passwordInput);
-  
-          container.appendChild(emailDiv);
-          container.appendChild(passwordDiv);
-  
-          section.appendChild(container);
-          a4Content.appendChild(section);
-        }
-      });
+                  // Fetch fields and labels for this brand from your PHP script
+                  fetch(`fetch_fields.php?brand_id=${brandId}&selectedLanguage=${selectedLanguage}`)
+.then(response => response.json())
+.then(data => {
+    // Container for input fields
+    const container = document.createElement('div');
+    container.style.display = 'flex';
+    container.style.flexDirection = 'column';
+    container.style.width = '80%';
+    container.style.marginLeft = '20px';
+
+    // Loop through each field and create inputs
+    data.forEach(field => {
+        const fieldLabel = document.createElement('label');
+        fieldLabel.textContent = field.label + ':';
+        fieldLabel.style.display = 'inline-block';
+        fieldLabel.style.width = '100px';
+
+        const fieldInput = document.createElement('input');
+        fieldInput.type = field.type;
+        fieldInput.style.display = 'inline-block';
+        fieldInput.style.marginLeft = '10px';
+
+        // Create a div to group the label and input, and style it
+        const fieldDiv = document.createElement('div');
+        fieldDiv.style.display = 'flex';
+
+        // Append label and input to the div
+        fieldDiv.appendChild(fieldLabel);
+        fieldDiv.appendChild(fieldInput);
+
+        // Append the div to the container
+        container.appendChild(fieldDiv);
     });
+
+    // Append container to section
+    section.appendChild(container);
+
+    // Append section to your main content area
+    a4Content.appendChild(section);
+
+  
+                  // Append container to section
+                  section.appendChild(container);
+  
+                  // Append section to your main content area
+                  a4Content.appendChild(section);
+              })
+              .catch(error => {
+                  console.error('There has been a problem with your fetch operation:', error);
+              });
+      });
+  });  
   
     // Add event listener to the clear sections button
     clearSectionsButton.addEventListener('click', function() {

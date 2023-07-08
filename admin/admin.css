@@ -150,3 +150,20 @@ button {
 button:hover {
     background-color: #2669a9;
 }
+
+#user_types input[type="checkbox"] {
+    display: none;
+  }
+  
+  #user_types label {
+    display: inline-block;
+    background-color: #f7f7f7;
+    padding: 5px 5px;
+    border-radius: 10px;
+    margin: 5px;
+    cursor: pointer;
+  }
+  
+  #user_types input[type="checkbox"]:checked + label {
+    background-color: #b3d4fc;
+  }  

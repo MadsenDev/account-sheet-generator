@@ -1,8 +1,37 @@
 <?php
 require_once 'db.php';
+require_once 'func.php';
+require_once 'admin/functions.php';
+
+$ip_address = $_SERVER['REMOTE_ADDR'];
+
+// You can use an API to get the location data, for example, ipinfo.io
+$location = file_get_contents("http://ipinfo.io/{$ip_address}/json");
+$locationData = json_decode($location, true);
+$location = isset($locationData['city']) ? $locationData['city'] . ', ' . $locationData['region'] . ', ' . $locationData['country'] : 'Unknown location';
+
+if (isUniqueDailyVisit()) {
+    $currentDate = date('Y-m-d');
+    // Insert a new row for today's unique visit
+    $sql = "INSERT INTO unique_daily_visits (visit_date, ip_address, location) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sss', $currentDate, $ip_address, $location);
+    $stmt->execute();
+}
+
+if (isIpBlocked($conn, $ip_address)) {
+  eventLog($conn, "Access blocked for: $ip_address");
+  // Redirect to a page informing them they are blocked, or elsewhere
+  header('Location: blocked.php');
+  exit();
+}
 
 $user_type_query = "SELECT id, name, title FROM user_type";
 $result = mysqli_query($conn, $user_type_query);
+
+// Get all languages
+$language_query = "SELECT id, language FROM languages";
+$language_result = mysqli_query($conn, $language_query);
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +63,27 @@ $result = mysqli_query($conn, $user_type_query);
           <label for="logo-input-right">Upload Logo (Right)</label>
           <input type="file" id="logo-input-right">
         </div>
+        <div id="language-selection">
+    <label for="language-select">Language:</label>
+    <select id="language-select">
+        <?php
+        $english_row = [];
+        while ($row = mysqli_fetch_assoc($language_result)) {
+            // If the language is English, store it in a variable and continue to the next iteration
+            if ($row['language'] == 'English') {
+                $english_row = $row;
+                continue;
+            }
+            echo "<option value='{$row['id']}'>{$row['language']}</option>";
+        }
+
+        // If English was found, prepend it to the select
+        if (!empty($english_row)) {
+            echo "<option value='{$english_row['id']}' selected='selected'>{$english_row['language']}</option>";
+        }
+        ?>
+    </select>
+</div>
       <!--Add radio buttons to select who you're using the web-site as-->
       <div id="user-type">
         <label for="user-type">User Type</label>
