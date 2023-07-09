@@ -28,7 +28,7 @@ global $conn;
 $query = "SELECT bf.type, t.translation as label
           FROM brand_fields bf 
           JOIN label_presets lp ON bf.label_id = lp.id 
-          JOIN translations t ON lp.id = t.label_preset_id
+          JOIN label_preset_translations t ON lp.id = t.label_preset_id
           WHERE bf.brand_id = ? AND t.language_id = ?
           ORDER BY bf.order";
 
