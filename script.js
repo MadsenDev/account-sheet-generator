@@ -67,28 +67,36 @@ document.addEventListener('DOMContentLoaded', function() {
 radioButtonsArray.forEach(button => {
   button.addEventListener('click', function() {
     // Get the selected user type
-    const selectedUserType = getSelectedUserType();
+const selectedUserType = getSelectedUserType();
 
-    if (selectedUserType === '2') {
-      header = "Account Information";
-      headerText.textContent = header;
-      // Remove logo backgrounds
-      logoRight.style.backgroundImage = '';
-      logoLeft.style.backgroundImage = '';
-      eMailText = "E-mail:";
-      passwordText = "Password:";
-      // Make all buttons visible
-      brandButtons.forEach(button => {
-        button.style.display = 'block';
-      });
-    } else if (selectedUserType === '3') {
-      header = "Kontoinformasjon";
-      headerText.textContent = header;
-      eMailText = "E-post:";
-      passwordText = "Passord:";
-      logoLeft.style.backgroundImage = `url(images/supportplus.png)`;
-      logoRight.style.backgroundImage = `url(images/elkjop-logo.png)`;
-    }
+// Fetch user type info
+fetch(`get_user_type_info.php?id=${selectedUserType}`)
+    .then(response => response.json())
+    .then(data => {
+        const { title, logo_left, logo_right, brands } = data;
+        header = title;
+        headerText.textContent = header;
+
+        if (logo_left) {
+            logoLeft.style.backgroundImage = `url(${logo_left})`;
+        } else {
+            logoLeft.style.backgroundImage = '';
+        }
+
+        if (logo_right) {
+            logoRight.style.backgroundImage = `url(${logo_right})`;
+        } else {
+            logoRight.style.backgroundImage = '';
+        }
+
+        // Make all buttons visible or not based on whether the brands array is empty or not
+        const displayStyle = brands.length > 0 ? 'block' : 'none';
+        brandButtons.forEach(button => {
+            button.style.display = displayStyle;
+        });
+    })
+    .catch(error => console.error('Error:', error));
+
 
     // Using Fetch API with GET method
     fetch(`fetch_brands.php?user_type=${selectedUserType}`)

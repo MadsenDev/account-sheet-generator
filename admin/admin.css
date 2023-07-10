@@ -166,4 +166,24 @@ button:hover {
   
   #user_types input[type="checkbox"]:checked + label {
     background-color: #b3d4fc;
-  }  
+  }
+
+  .menu-item-with-submenu .submenu {
+    display: none;
+    background-color: #444;
+    list-style: none;
+    padding-left: 20px; /* increase left padding for submenu */
+}
+
+.menu-item-with-submenu:hover .submenu {
+    display: block;
+}
+
+.menu-item-with-submenu .submenu a:hover {
+    background-color: #555; /* choose a color that provides a good contrast */
+    color: #fff;
+}
+
+.submenu li {
+    border-bottom: none; /* optional, remove if you want borders */
+}

@@ -46,7 +46,7 @@ if (isset($_POST['login'])) {
 
     $error = 'Invalid username or password.';
 
-    eventLog($conn, "Failed login attempt");
+    eventLog($conn, "Failed login attempt with username: $username");
 }
 ?>
 <!DOCTYPE html>

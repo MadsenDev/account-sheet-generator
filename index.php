@@ -3,6 +3,9 @@ require_once 'db.php';
 require_once 'func.php';
 require_once 'admin/functions.php';
 
+session_start();
+$loggedIn = isset($_SESSION['user_id']);
+
 $ip_address = $_SERVER['REMOTE_ADDR'];
 
 // You can use an API to get the location data, for example, ipinfo.io
@@ -243,7 +246,9 @@ $language_result = mysqli_query($conn, $language_query);
     </div>
     <div id="footer">
       <p>Go to the source at <a href="https://github.com/MadsenDev/account-sheet-generator" target="_blank">GitHub</a></p>
-      <p>Admin? <a href="admin/dashboard.php">Log in here</a>.</p>
+      <p>Admin? <a href="<?php echo $loggedIn ? 'admin/dashboard.php' : 'admin/login.php'; ?>">
+    <?php echo $loggedIn ? 'Go to Dashboard' : 'Log in here'; ?>
+</a>.</p>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
