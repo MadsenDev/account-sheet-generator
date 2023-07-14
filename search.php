@@ -1,6 +1,4 @@
 <?php
-// Establish a database connection
-$conn = mysqli_connect("localhost", "madsensd_madsen", "data2023", "madsensd_acct");
 
 // Get the search query from the AJAX request
 $query = $_GET['query'];

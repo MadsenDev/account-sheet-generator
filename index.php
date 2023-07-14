@@ -1,8 +1,40 @@
 <?php
 require_once 'db.php';
+require_once 'func.php';
+require_once 'admin/functions.php';
+
+session_start();
+$loggedIn = isset($_SESSION['user_id']);
+
+$ip_address = $_SERVER['REMOTE_ADDR'];
+
+// You can use an API to get the location data, for example, ipinfo.io
+$location = file_get_contents("http://ipinfo.io/{$ip_address}/json");
+$locationData = json_decode($location, true);
+$location = isset($locationData['city']) ? $locationData['city'] . ', ' . $locationData['region'] . ', ' . $locationData['country'] : 'Unknown location';
+
+if (isUniqueDailyVisit()) {
+    $currentDate = date('Y-m-d');
+    // Insert a new row for today's unique visit
+    $sql = "INSERT INTO unique_daily_visits (visit_date, ip_address, location) VALUES (?, ?, ?)";
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('sss', $currentDate, $ip_address, $location);
+    $stmt->execute();
+}
+
+if (isIpBlocked($conn, $ip_address)) {
+  eventLog($conn, "Access blocked for: $ip_address");
+  // Redirect to a page informing them they are blocked, or elsewhere
+  header('Location: blocked.php');
+  exit();
+}
 
 $user_type_query = "SELECT id, name, title FROM user_type";
 $result = mysqli_query($conn, $user_type_query);
+
+// Get all languages
+$language_query = "SELECT id, language FROM languages";
+$language_result = mysqli_query($conn, $language_query);
 ?>
 
 <!DOCTYPE html>
@@ -34,6 +66,30 @@ $result = mysqli_query($conn, $user_type_query);
           <label for="logo-input-right">Upload Logo (Right)</label>
           <input type="file" id="logo-input-right">
         </div>
+        <div id="clear-logos">
+          <label for="clear-logos">Clear Logos</label>
+        </div>
+        <div id="language-selection">
+    <label for="language-select">Language:</label>
+    <select id="language-select">
+        <?php
+        $english_row = [];
+        while ($row = mysqli_fetch_assoc($language_result)) {
+            // If the language is English, store it in a variable and continue to the next iteration
+            if ($row['language'] == 'English') {
+                $english_row = $row;
+                continue;
+            }
+            echo "<option value='{$row['id']}'>{$row['language']}</option>";
+        }
+
+        // If English was found, prepend it to the select
+        if (!empty($english_row)) {
+            echo "<option value='{$english_row['id']}' selected='selected'>{$english_row['language']}</option>";
+        }
+        ?>
+    </select>
+</div>
       <!--Add radio buttons to select who you're using the web-site as-->
       <div id="user-type">
         <label for="user-type">User Type</label>
@@ -191,10 +247,13 @@ $result = mysqli_query($conn, $user_type_query);
       </div>
 
     </div>
-    <div id="footer">
-      <p>Go to the source at <a href="https://github.com/MadsenDev/account-sheet-generator" target="_blank">GitHub</a></p>
-      <p>Admin? <a href="admin/dashboard.php">Log in here</a>.</p>
-    </div>
+    <footer>
+      <p><b>No account data is stored on this website.</b> Go to the source at <a href="https://github.com/MadsenDev/account-sheet-generator" target="_blank">GitHub</a>.</p>
+      <p>Admin? <a href="<?php echo $loggedIn ? 'admin/dashboard.php' : 'admin/login.php'; ?>">
+    <?php echo $loggedIn ? 'Go to Dashboard' : 'Log in here'; ?>
+</a>.</p>
+<p>© 2023 Madsen Utvikling | Org nr: 927840480</p>
+</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
