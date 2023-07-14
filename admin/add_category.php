@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-}
-
 require_once '../db.php';
+require_once 'functions.php';
+checkSession($conn);
+
+$user_id = $_SESSION['user_id']; // Get the user_id from the session
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $name = $_POST['name'];
@@ -13,6 +13,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = mysqli_prepare($conn, $insert_query);
     mysqli_stmt_bind_param($stmt, 's', $name);
     mysqli_stmt_execute($stmt);
+
+    eventLog($conn, "Category added", 'addition', $user_id);
 
     header('Location: manage_categories.php');
     exit();

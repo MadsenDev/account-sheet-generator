@@ -1,10 +1,10 @@
 <?php
 session_start();
-if (!isset($_SESSION['user_id'])) {
-    header('Location: login.php');
-}
-
 require_once '../db.php';
+require_once 'functions.php';
+checkSession($conn);
+
+$user_id = $_SESSION['user_id']; // Get the user_id from the session
 
 $search = isset($_GET['search']) ? $_GET['search'] : '';
 
