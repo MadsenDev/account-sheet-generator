@@ -6,10 +6,7 @@ error_reporting(E_ALL);
 session_start();
 require_once '../db.php';
 require_once 'functions.php';
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to edit brand");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -102,7 +99,7 @@ if (isset($_POST['user_types'])) {
     }
 }
 
-eventLog($conn, "Edited brand $name", $user_id);
+eventLog($conn, "Edited brand $name", 'modification', $user_id);
 
     header('Location: manage_brands.php');
     exit();

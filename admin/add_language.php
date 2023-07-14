@@ -7,10 +7,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to add language");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -21,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = mysqli_prepare($conn, $insert_query);
     mysqli_stmt_bind_param($stmt, 's', $language);
     mysqli_stmt_execute($stmt);
+    eventLog($conn, "Language added: $language", 'addition', $user_id);
     header('Location: manage_languages.php');
     exit();
 }

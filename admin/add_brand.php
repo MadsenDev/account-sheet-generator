@@ -2,10 +2,7 @@
 session_start();
 require_once '../db.php';
 require_once 'functions.php';
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to add brand");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -56,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         mysqli_stmt_execute($stmt);
     }
 
-    eventLog($conn, "Brand added", $user_id);
+    eventLog($conn, "Brand added", 'addition', $user_id);
 
     header('Location: manage_brands.php');
     exit();

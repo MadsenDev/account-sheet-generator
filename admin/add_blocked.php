@@ -3,11 +3,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog("Unauthorized access attempt to add blocked IP");
-    header('Location: login.php');
-    exit();
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -21,7 +17,7 @@ if (isset($_POST['add'])) {
     $stmt->bind_param("ss", $ip_address, $block_reason);
     
     if ($stmt->execute()) {
-        eventLog($conn, "Added IP $ip_address to blocked", $user_id);
+        eventLog($conn, "Added IP $ip_address to blocked", 'addition', $user_id);
         header('Location: manage_blocked.php');
         exit();
     } else {

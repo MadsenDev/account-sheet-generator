@@ -66,6 +66,9 @@ $language_result = mysqli_query($conn, $language_query);
           <label for="logo-input-right">Upload Logo (Right)</label>
           <input type="file" id="logo-input-right">
         </div>
+        <div id="clear-logos">
+          <label for="clear-logos">Clear Logos</label>
+        </div>
         <div id="language-selection">
     <label for="language-select">Language:</label>
     <select id="language-select">
@@ -244,12 +247,13 @@ $language_result = mysqli_query($conn, $language_query);
       </div>
 
     </div>
-    <div id="footer">
-      <p>Go to the source at <a href="https://github.com/MadsenDev/account-sheet-generator" target="_blank">GitHub</a></p>
+    <footer>
+      <p><b>No account data is stored on this website.</b> Go to the source at <a href="https://github.com/MadsenDev/account-sheet-generator" target="_blank">GitHub</a>.</p>
       <p>Admin? <a href="<?php echo $loggedIn ? 'admin/dashboard.php' : 'admin/login.php'; ?>">
     <?php echo $loggedIn ? 'Go to Dashboard' : 'Log in here'; ?>
 </a>.</p>
-    </div>
+<p>© 2023 Madsen Utvikling | Org nr: 927840480</p>
+</footer>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>

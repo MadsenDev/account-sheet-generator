@@ -2,11 +2,7 @@
 session_start();
 require_once '../db.php';
 require_once 'functions.php';
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to edit category");
-    header('Location: login.php');
-    exit();
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -18,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $stmt = mysqli_prepare($conn, $update_query);
     mysqli_stmt_bind_param($stmt, 'si', $name, $id);
     mysqli_stmt_execute($stmt);
-    eventLog($conn, "Category updated", $user_id);
+    eventLog($conn, "Category updated", 'modification', $user_id);
 
     header('Location: manage_categories.php');
     exit();

@@ -7,10 +7,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to manage translations by language");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -50,6 +47,15 @@ mysqli_stmt_bind_param($stmt, 'i', $language_id);
 mysqli_stmt_execute($stmt);
 $categories_result = mysqli_stmt_get_result($stmt);
 $categories = mysqli_fetch_all($categories_result, MYSQLI_ASSOC);
+
+// Fetch brands and translations
+$brands_query = "SELECT b.id, b.name AS original_name, t.translation FROM brands b
+LEFT JOIN brand_translations t ON b.id = t.brand_id AND t.language_id = ?";
+$stmt = mysqli_prepare($conn, $brands_query);
+mysqli_stmt_bind_param($stmt, 'i', $language_id);
+mysqli_stmt_execute($stmt);
+$brands_result = mysqli_stmt_get_result($stmt);
+$brands = mysqli_fetch_all($brands_result, MYSQLI_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -84,6 +90,12 @@ $categories = mysqli_fetch_all($categories_result, MYSQLI_ASSOC);
             <?php foreach ($categories as $category): ?>
                 <label for="category_<?php echo $category['id']; ?>"><?php echo $category['original_name']; ?></label>
                 <input type="text" id="category_<?php echo $category['id']; ?>" name="categories[<?php echo $category['id']; ?>]" value="<?php echo $category['translation']; ?>">
+            <?php endforeach; ?>
+
+            <h2>Brands</h2>
+            <?php foreach ($brands as $brand): ?>
+                <label for="brand_<?php echo $brand['id']; ?>"><?php echo $brand['original_name']; ?></label>
+                <input type="text" id="brand_<?php echo $brand['id']; ?>" name="brands[<?php echo $brand['id']; ?>]" value="<?php echo $brand['translation']; ?>">
             <?php endforeach; ?>
             
             <button type="submit">Save Changes</button>

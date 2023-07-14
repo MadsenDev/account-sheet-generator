@@ -7,10 +7,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to bulk update translations");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -19,6 +16,7 @@ $language_id = $_POST['language_id']; // Get the id of the language to update
 $label_presets = $_POST['label_presets']; // Get the label preset translations
 $site_labels = $_POST['site_labels']; // Get the site label translations
 $categories = $_POST['categories']; // Get the category translations
+$brands = $_POST['brands']; // Get the brand translations
 
 // Iterate through the label presets
 foreach ($label_presets as $label_preset_id => $translation) {
@@ -47,7 +45,16 @@ foreach ($categories as $category_id => $translation) {
     mysqli_stmt_execute($stmt);
 }
 
-eventLog($conn, "Bulk update translations", $user_id);
+// Iterate through the brands
+foreach ($brands as $brand_id => $translation) {
+    $update_query = "INSERT INTO brand_translations (brand_id, language_id, translation)
+    VALUES (?, ?, ?) ON DUPLICATE KEY UPDATE translation = ?";
+    $stmt = mysqli_prepare($conn, $update_query);
+    mysqli_stmt_bind_param($stmt, 'iiss', $brand_id, $language_id, $translation, $translation);
+    mysqli_stmt_execute($stmt);
+}
+
+eventLog($conn, "Bulk update translations", 'modification', $user_id);
 
 header('Location: manage_translations_language.php?id=' . $language_id);
 exit();

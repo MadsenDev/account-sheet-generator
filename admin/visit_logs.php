@@ -3,10 +3,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog("Unauthorized access attempt to manage visit logs");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $date_filter = isset($_GET['date_filter']) ? $_GET['date_filter'] : '';
 

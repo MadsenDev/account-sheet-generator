@@ -25,6 +25,7 @@
             <a href="#">Manage</a>
             <ul class="submenu">
                 <li><a href="manage_user_type.php">User Types</a></li>
+                <li><a href="manage_users.php">Users</a></li>
                 <li><a href="manage_languages.php">Languages</a></li>
                 <li><a href="manage_blocked.php">Blocked</a></li>
             </ul>

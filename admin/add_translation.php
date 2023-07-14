@@ -7,10 +7,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog($conn, "Unauthorized access attempt to add translation");
-    header('Location: login.php');
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -30,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     mysqli_stmt_bind_param($stmt, 'iis', $label_preset_id, $language_id, $translation);
     mysqli_stmt_execute($stmt);
 
-    eventLog($conn, "Translation added", $user_id);
+    eventLog($conn, "Translation added", 'addition', $user_id);
 
     header('Location: manage_translations.php');
     exit();

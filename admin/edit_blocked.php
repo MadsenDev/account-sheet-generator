@@ -3,11 +3,7 @@ session_start();
 require_once '../db.php';
 require_once 'functions.php';
 
-if (!isset($_SESSION['user_id'])) {
-    eventLog("Unauthorized access attempt to edit blocked IP");
-    header('Location: login.php');
-    exit();
-}
+checkSession($conn);
 
 $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
@@ -28,7 +24,7 @@ if (isset($_POST['edit'])) {
     $stmt->bind_param("ssi", $ip_address, $block_reason, $blocked_ip_id);
     
     if ($stmt->execute()) {
-        eventLog($conn, "Updated blocked IP $ip_address", $user_id);
+        eventLog($conn, "Updated blocked IP $ip_address", 'modification', $user_id);
         header('Location: manage_blocked.php');
         exit();
     } else {

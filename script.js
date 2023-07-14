@@ -18,6 +18,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Fetch #a4-content
     const a4Content = document.querySelector('#a4-content');
     const clearSectionsButton = document.querySelector('#clear-sections');
+    const clearLogosButton = document.querySelector('#clear-logos');
     // Fetch #right-sidebar
     const rightSidebar = document.querySelector('#right-sidebar');
     // Fetch #left-sidebar
@@ -235,10 +236,15 @@ fetch(`get_user_type_info.php?id=${selectedUserType}`)
       a4Content.innerHTML = '';
     });
 
+    clearLogosButton.addEventListener('click', function() {
+      logoLeft.style.backgroundImage = '';
+      logoRight.style.backgroundImage = '';
+    });
+
     // Add an event listener to the print button
 printButton.addEventListener('click', function() {
   convertInputsToText();
-  
+
   // Create a new window
   const printWindow = window.open('', '_blank');
 
@@ -261,6 +267,12 @@ printButton.addEventListener('click', function() {
   printWindow.onbeforeunload = function() {
     // Clear sections when the print window is closed
     a4Content.innerHTML = '';
+
+    // Make an AJAX request to log_event.php
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "log_event.php", true);
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.send("event=Printable Account Sheets printed");
   };
 });
   
