@@ -37,7 +37,7 @@ if (isset($_POST['login'])) {
             $_SESSION['user_id'] = $user['id'];
             $user_id = $_SESSION['user_id']; // Get the user_id from the session
 
-            eventLog($conn, "Successful login", $user_id);
+            eventLog($conn, "Successful login", 'access', $user_id);
 
             header('Location: dashboard.php');
             exit();
