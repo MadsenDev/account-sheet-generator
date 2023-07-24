@@ -5,33 +5,61 @@ document.addEventListener('DOMContentLoaded', function() {
   var headerText = document.querySelector('#header-text');
   const selectedUserType = getSelectedUserType();
   console.log("Selected user type:", selectedUserType);
-    // Get the logo elements and file input elements
-    const logoLeft = document.querySelector('#logo-left');
-    const logoRight = document.querySelector('#logo-right');
-    const logoInputLeft = document.querySelector('#logo-input-left');
-    const logoInputRight = document.querySelector('#logo-input-right');
-    const printButton = document.querySelector('#print-button');
 
-    // Get radio buttons from user-input
-    const radioButtons = document.getElementsByName('user-type');
-    const radioButtonsArray = Array.from(radioButtons);
-    // Fetch #a4-content
-    const a4Content = document.querySelector('#a4-content');
-    const clearSectionsButton = document.querySelector('#clear-sections');
-    const clearLogosButton = document.querySelector('#clear-logos');
-    // Fetch #right-sidebar
-    const rightSidebar = document.querySelector('#right-sidebar');
-    // Fetch #left-sidebar
-    const leftSidebar = document.querySelector('#left-sidebar');
-    // Fetch #brand-buttons
-    const brandButtonDiv = document.querySelector('#brand-buttons');
-    // Get the brand buttons
-    const brandButtons = document.querySelectorAll('.brand-button');
+  const logoLeft = document.querySelector('#logo-left');
+  const logoRight = document.querySelector('#logo-right');
+  const logoInputLeft = document.querySelector('#logo-input-left');
+  const logoInputRight = document.querySelector('#logo-input-right');
+  const printButton = document.querySelector('#print-button');
 
-    // Strings for the header and input fields
-    var header = "Account Information";
-    var eMailText = "E-mail:";
-    var passwordText = "Password:";
+  const radioButtons = document.getElementsByName('user-type');
+  const radioButtonsArray = Array.from(radioButtons);
+  const a4Content = document.querySelector('#a4-content');
+  const clearSectionsButton = document.querySelector('#clear-sections');
+  const clearLogosButton = document.querySelector('#clear-logos');
+  const clearWatermarkButton = document.querySelector('#clear-watermark');
+  const rightSidebar = document.querySelector('#right-sidebar');
+  const leftSidebar = document.querySelector('#left-sidebar');
+  const brandButtonDiv = document.querySelector('#brand-buttons');
+  const brandButtons = document.querySelectorAll('.brand-button');
+  const selectElement = document.getElementById('language-select');
+
+  var header = "Account Information";
+  var eMailText = "E-mail:";
+  var passwordText = "Password:";
+
+  const a4Area = document.querySelector('#a4-content');
+
+  const openOverlayButton = document.getElementById('open-overlay');
+  const closeOverlayButton = document.getElementById('close-overlay');
+  const overlay = document.getElementById('overlay');
+
+  openOverlayButton.addEventListener('click', () => {
+    overlay.style.display = 'block';
+  });
+
+  closeOverlayButton.addEventListener('click', () => {
+    overlay.style.display = 'none';
+  });
+
+document.querySelector('#add-watermark-button').addEventListener('click', () => {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = () => {
+    const file = input.files[0];
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => {
+      //a4Content.style.backgroundImage = `url(${reader.result})`;
+      a4Content.style.backgroundRepeat = 'no-repeat';
+      a4Content.style.backgroundPosition = 'center';
+      a4Content.style.backgroundSize = 'fill';
+      a4Content.classList.add('watermark');
+    };
+  };
+  input.click();
+});
   
     // Add event listeners to the file input elements
     logoInputLeft.addEventListener('change', function() {
@@ -74,9 +102,11 @@ const selectedUserType = getSelectedUserType();
 fetch(`get_user_type_info.php?id=${selectedUserType}`)
     .then(response => response.json())
     .then(data => {
-        const { title, logo_left, logo_right, brands } = data;
+        const { title, logo_left, logo_right, watermark, language_id, brands } = data;
         header = title;
         headerText.textContent = header;
+        selectedLanguage = language_id;
+        selectElement.value = language_id;
 
         if (logo_left) {
             logoLeft.style.backgroundImage = `url(${logo_left})`;
@@ -88,6 +118,17 @@ fetch(`get_user_type_info.php?id=${selectedUserType}`)
             logoRight.style.backgroundImage = `url(${logo_right})`;
         } else {
             logoRight.style.backgroundImage = '';
+        }
+
+        if (watermark) {
+            //a4Content.style.backgroundImage = `url(${watermark})`;
+            a4Content.style.backgroundRepeat = 'no-repeat';
+            a4Content.style.backgroundPosition = 'center';
+            a4Content.style.backgroundSize = 'fill';
+            a4Content.classList.add('watermark');
+        } else {
+            a4Content.style.backgroundImage = '';
+            a4Content.classList.remove('watermark');
         }
 
         // Make all buttons visible or not based on whether the brands array is empty or not
@@ -241,6 +282,10 @@ fetch(`get_user_type_info.php?id=${selectedUserType}`)
       logoRight.style.backgroundImage = '';
     });
 
+    clearWatermarkButton.addEventListener('click', function() {
+      a4Content.style.backgroundImage = '';
+    });
+
     // Add an event listener to the print button
 printButton.addEventListener('click', function() {
   convertInputsToText();
@@ -352,5 +397,115 @@ searchInput.addEventListener("input", () => {
 document.querySelector('#search-form').addEventListener('submit', handleSearchFormSubmit);
 
 
+let fieldCount = 0;
 
+function addField() {
+const container = document.getElementById('fields-container');
+
+const field = document.createElement('div');
+field.classList.add('field');
+
+const label = document.createElement('label');
+label.textContent = 'Label:';
+field.appendChild(label);
+
+const labelInput = document.createElement('input');
+labelInput.type = 'text';
+labelInput.name = `fields[${fieldCount}][label]`;
+field.appendChild(labelInput);
+
+const typeLabel = document.createElement('label');
+typeLabel.textContent = 'Type:';
+field.appendChild(typeLabel);
+
+const typeSelect = document.createElement('select');
+typeSelect.name = `fields[${fieldCount}][type]`;
+
+const textOption = document.createElement('option');
+textOption.value = 'text';
+textOption.textContent = 'Text';
+typeSelect.appendChild(textOption);
+
+const numberOption = document.createElement('option');
+numberOption.value = 'number';
+numberOption.textContent = 'Number';
+typeSelect.appendChild(numberOption);
+
+field.appendChild(typeSelect);
+
+container.appendChild(field);
+
+fieldCount++;
+}
+
+function submitForm() {
+  const name = document.getElementById('name').value;
+  const logo = document.getElementById('logo').files[0];
+  const fields = [];
+
+  const fieldElements = document.querySelectorAll('#fields-container .field');
+  fieldElements.forEach((fieldElement) => {
+    const label = fieldElement.querySelector('input[name$="[label]"]').value;
+    const type = fieldElement.querySelector('select[name$="[type]"]').value;
+    fields.push({ label, type });
+  });
+
+  // Create a new section with the brand logo
+  const section = document.createElement('div');
+  section.className = 'section';
+  section.style.width = '100%';
+
+  const brandLogo = document.createElement('img');
+  brandLogo.src = URL.createObjectURL(logo);
+  brandLogo.alt = name;
+  brandLogo.className = 'section-logo';
+
+  section.appendChild(brandLogo);
+
+  // Add a title for the section. The title is the same as the brand name
+  const sectionTitle = document.createElement('h2');
+  sectionTitle.textContent = name;
+
+  fetch('/fields')
+    .then(response => response.json())
+    .then(data => {
+      // Container for input fields
+      const container = document.createElement('div');
+      container.style.display = 'flex';
+      container.style.flexDirection = 'column';
+      container.style.width = '80%';
+      container.style.marginLeft = '20px';
+
+      // Loop through each field and create inputs
+      fields.forEach((field, index) => {
+        const fieldLabel = document.createElement('label');
+        fieldLabel.textContent = field.label + ':';
+        fieldLabel.style.display = 'inline-block';
+        fieldLabel.style.width = '100px';
+
+        const fieldInput = document.createElement('input');
+        fieldInput.type = field.type;
+        fieldInput.style.display = 'inline-block';
+        fieldInput.style.marginLeft = '10px';
+        fieldInput.name = `fields[${index}][value]`;
+
+        // Create a div to group the label and input, and style it
+        const fieldDiv = document.createElement('div');
+        fieldDiv.style.display = 'flex';
+
+        // Append label and input to the div
+        fieldDiv.appendChild(fieldLabel);
+        fieldDiv.appendChild(fieldInput);
+
+        // Append the div to the container
+        container.appendChild(fieldDiv);
+      });
+
+      // Append container to section
+      section.appendChild(container);
+
+      // Append section to your main content area
+      a4Content.appendChild(section);
+    });
+}
 });
