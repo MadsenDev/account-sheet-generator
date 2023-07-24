@@ -10,36 +10,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id = $_POST['id'];
     $name = $_POST['name'];
     $title = $_POST['title'];
+    $language_id = $_POST['language_id'];
 
     $logo_left = $_FILES['logo_left'];
     $logo_right = $_FILES['logo_right'];
+    $watermark = $_FILES['watermark'];
 
-    $logo_left_path = $logo_right_path = '';
+    $logo_left_path = !empty($logo_left['name']) ? 'logos/' . time() . '_' . $logo_left['name'] : $user_type['logo_left'];
+    $logo_right_path = !empty($logo_right['name']) ? 'logos/' . time() . '_' . $logo_right['name'] : $user_type['logo_right'];
+    $watermark_path = !empty($watermark['name']) ? 'watermarks/' . time() . '_' . $watermark['name'] : $user_type['watermark'];
 
-    if (!empty($logo_left['name'])) {
-        $logo_left_path = 'logos/' . time() . '_' . $logo_left['name'];
+    if ($logo_left_path && $logo_left['error'] == UPLOAD_ERR_OK) {
         move_uploaded_file($logo_left['tmp_name'], '../' . $logo_left_path);
     }
-
-    if (!empty($logo_right['name'])) {
-        $logo_right_path = 'logos/' . time() . '_' . $logo_right['name'];
+    if ($logo_right_path && $logo_right['error'] == UPLOAD_ERR_OK) {
         move_uploaded_file($logo_right['tmp_name'], '../' . $logo_right_path);
     }
-
-    $update_query = "UPDATE user_type SET name = ?, title = ?" . (!empty($logo_left_path) ? ", logo_left = ?" : "") . (!empty($logo_right_path) ? ", logo_right = ?" : "") . " WHERE id = ?";
-    $stmt = mysqli_prepare($conn, $update_query);
-
-    if (!empty($logo_left_path) && !empty($logo_right_path)) {
-        mysqli_stmt_bind_param($stmt, 'ssssi', $name, $title, $logo_left_path, $logo_right_path, $id);
-    } elseif (!empty($logo_left_path)) {
-        mysqli_stmt_bind_param($stmt, 'sssi', $name, $title, $logo_left_path, $id);
-    } elseif (!empty($logo_right_path)) {
-        mysqli_stmt_bind_param($stmt, 'sssi', $name, $title, $logo_right_path, $id);
-    } else {
-        mysqli_stmt_bind_param($stmt, 'ssi', $name, $title, $id);
+    if ($watermark_path && $watermark['error'] == UPLOAD_ERR_OK) {
+        move_uploaded_file($watermark['tmp_name'], '../' . $watermark_path);
     }
 
+    $update_query = "UPDATE user_type SET name = ?, title = ?, logo_left = ?, logo_right = ?, watermark = ?, language_id = ? WHERE id = ?";
+    $stmt = mysqli_prepare($conn, $update_query);
+    mysqli_stmt_bind_param($stmt, 'ssssssi', $name, $title, $logo_left_path, $logo_right_path, $watermark_path, $language_id, $id);
     mysqli_stmt_execute($stmt);
+
     eventLog($conn, "User type updated", 'modification', $user_id);
 
     header('Location: manage_user_type.php');
@@ -63,7 +58,11 @@ if (!$user_type) {
     header('Location: manage_user_type.php');
     exit();
 }
+
+$languages_query = "SELECT id, language FROM languages";
+$languages_result = mysqli_query($conn, $languages_query);
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -85,11 +84,21 @@ if (!$user_type) {
             <label for="title">Title:</label>
             <input type="text" name="title" id="title" value="<?php echo $user_type['title']; ?>" required>
             <br>
+            <label for="language_id">Language:</label>
+            <select name="language_id" id="language_id" required>
+                <?php while ($language = mysqli_fetch_assoc($languages_result)) { ?>
+                    <option value="<?php echo $language['id']; ?>" <?php if ($language['id'] == $user_type['language_id']) { echo 'selected'; } ?>><?php echo $language['language']; ?></option>
+                <?php } ?>
+            </select>
+            <br>
             <label for="logo_left">Logo Left (current: <?php echo $user_type['logo_left']; ?>):</label>
             <input type="file" name="logo_left" id="logo_left">
             <br>
             <label for="logo_right">Logo Right (current: <?php echo $user_type['logo_right']; ?>):</label>
             <input type="file" name="logo_right" id="logo_right">
+            <br>
+            <label for="watermark">Watermark (current: <?php echo $user_type['watermark']; ?>):</label>
+            <input type="file" name="watermark" id="watermark">
             <br>
             <button type="submit">Update User Type</button>
         </form>

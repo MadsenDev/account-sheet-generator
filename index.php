@@ -46,31 +46,61 @@ $language_result = mysqli_query($conn, $language_query);
     <link rel="icon" href="images/favicon.png">
   </head>
   <body>
+    <div id="overlay">
+    <div id="overlay-content">
+      <h2>Add Custom Brand</h2>
+      <form>
+        <label for="name">Name:</label>
+        <input type="text" id="name" required>
+        <br>
+        <label for="logo">Logo:</label>
+        <input type="file" id="logo" accept="image/*" required>
+        <br>
+        <label>Fields:</label>
+        <div id="fields-container"></div>
+        <button type="button" onclick="addField()">Add Field</button>
+        <br>
+        <button type="button" onclick="submitForm()">Add Brand</button>
+      </form>
+      <div id="close-overlay" class="big-button">
+        <label for="close-overlay">Close</label>
+      </div>
+    </div>
+  </div>
     <div id="wrapper">
       <div id="left-sidebar">
         <div id="site-logo">
           <img src="images/logo.png" alt="Printable Account Sheets logo">
           <h1>Printable Account Sheets</h1>
         </div>
-        <div id="print-button">
+        <div id="print-button" class="big-button">
           <label for="print">Print</label>
         </div>
-        <div id="clear-sections">
+        <div id="open-overlay" class="big-button">
+          <label for="open-overlay">Custom Brand (WIP)</label>
+        </div>
+        <div id="clear-sections" class="big-button">
           <label for="clear-sections">Clear Sections</label>
         </div>
-        <div id="uploader-left">
+        <div id="uploader-left" class="big-button">
           <label for="logo-input-left">Upload Logo (Left)</label>
           <input type="file" id="logo-input-left">
         </div>
-        <div id="uploader-right">
+        <div id="uploader-right" class="big-button">
           <label for="logo-input-right">Upload Logo (Right)</label>
           <input type="file" id="logo-input-right">
         </div>
-        <div id="clear-logos">
+        <div id="clear-logos" class="big-button">
           <label for="clear-logos">Clear Logos</label>
         </div>
+        <div id="add-watermark-button" class="big-button">
+          <label for="add-watermark-button">Upload Watermark (WIP)</label>
+          <input type="file" id="logo-input-right">
+        </div>
+        <div id="clear-watermark" class="big-button">
+          <label for="clear-watermark">Clear Watermark</label>
+        </div>
         <div id="language-selection">
-    <label for="language-select">Language:</label>
     <select id="language-select">
         <?php
         $english_row = [];
@@ -260,5 +290,6 @@ $language_result = mysqli_query($conn, $language_query);
     <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/1.3.8/FileSaver.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.13/jspdf.plugin.autotable.min.js"></script>
     <script src="script.js"></script>
+    <script src="overlay.js"></script>
   </body>
 </html>

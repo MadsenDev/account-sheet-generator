@@ -9,11 +9,12 @@
 }
 
 #site-logo {
-  width: 200px;
+  width: 100%;
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
   margin-right: 20px;
+  text-align: center;
 }
 #site-logo img {
   width: 100%;
@@ -24,6 +25,79 @@
   margin: 0;
   padding: 0;
   font-size: 18px;
+}
+
+#overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  z-index: 9999;
+}
+
+#overlay-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: white;
+  padding: 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 10000;
+  max-width: 800px;
+}
+
+#close-overlay {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 10001;
+}
+
+#overlay-content h2 {
+  margin-top: 0;
+}
+
+#overlay-content form {
+  display: inline-block;
+  text-align: left;
+}
+
+#overlay-content label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+#overlay-content input[type="text"],
+#overlay-content input[type="file"],
+#overlay-content select {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+}
+
+#overlay-content button[type="button"] {
+  display: inline-block;
+  padding: 10px 20px;
+  margin-right: 10px;
+  border-radius: 5px;
+  border: none;
+  background-color: #007bff;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+#overlay-content button[type="button"]:hover {
+  background-color: #0062cc;
 }
 
 #a4-area {
@@ -54,7 +128,7 @@ footer p {
 }
 
 footer a {
-  color: #007bff;
+  color: #6348ab;
   text-decoration: none;
 }
 
@@ -162,16 +236,14 @@ footer a:hover {
   background-position: right;
 }
 
-#clear-sections {
-  margin-top: 20px;
+.big-button {
+  /*margin-top: 20px;*/
 }
 
-#clear-sections label {
+.big-button label {
   display: block;
-  margin-bottom: 10px;
   padding: 10px;
-  border-radius: 10px;
-  background-color: #b3d4fc;
+  background-color: #f2f2f2;
   color: #000000;
   font-size: 16px;
   font-weight: bold;
@@ -179,35 +251,16 @@ footer a:hover {
   text-decoration: none;
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
   cursor: pointer;
-  width: 80%;
+  width: 90%;
 }
 
-#clear-sections label:hover {
-  background-color: #90adcf;
+.big-button label:hover {
+  background-color: #e4e0e0;
 }
 
-#clear-logos {
-  margin-top: 20px;
-}
 
-#clear-logos label {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #b3d4fc;
-  color: #000000;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  width: 80%;
-}
-
-#clear-logos label:hover {
-  background-color: #90adcf;
+#add-watermark-button input[type="file"] {
+  display: none;
 }
 
 
@@ -250,47 +303,22 @@ footer a:hover {
   margin-right: 20px;
 }
 
-#uploader-left,
-#uploader-right {
-  margin-top: 20px;
-}
-
 #uploader-left input[type="file"],
 #uploader-right input[type="file"] {
   display: none;
 }
 
-#uploader-left label,
-#uploader-right label {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #b3d4fc;
-  color: #000000;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  width: 80%;
-}
-
-#uploader-left label:hover,
-#uploader-right label:hover {
-  background-color: #90adcf;
-}
-
+/* User Type */
 #user-type {
   margin: 10px 0;
+  text-align: center;
 }
 
 #user-type label {
   display: block;
   font-weight: bold;
   margin-bottom: 5px;
-  width: 80%;
+  width: 90%;
   text-align: center;
 }
 
@@ -312,14 +340,15 @@ footer a:hover {
 }
 
 #user-type-buttons input[type="radio"]:checked + label {
-  background-color: #b3d4fc;
+  background-color: #8d7692;
   color: #000000;
 }
 
 #user-type-buttons input[type="radio"]:checked + label:hover {
-  background-color: #90adcf;
+  background-color: #8e83ac;
 }
 
+/* Buttons */
 .brand-button {
   display: block;
   margin-bottom: 10px;
@@ -355,6 +384,7 @@ footer a:hover {
   box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
+/* Categories */
 #categories input[type="checkbox"] {
   display: none;
 }
@@ -369,7 +399,7 @@ footer a:hover {
 }
 
 #categories input[type="checkbox"]:checked + label {
-  background-color: #b3d4fc;
+  background-color: #8e83ac;
 }
 
 #category-buttons {
@@ -380,7 +410,7 @@ footer a:hover {
 }
 
 #category-select-all, #category-unselect-all {
-  background-color: #b3d4fc;
+  background-color: #8e83ac;
   color: black;
   padding: 10px;
   border: none;
@@ -391,7 +421,7 @@ footer a:hover {
 }
 
 #category-select-all:hover, #category-unselect-all:hover {
-  background-color: #90adcf;
+  background-color: #8d7692;
 }
 
 #category-select-all:focus, #category-unselect-all:focus {
@@ -402,6 +432,7 @@ footer a:hover {
   margin-right: 10px;
 }
 
+/* Search */
 #search {
   display: flex;
   justify-content: center;
@@ -439,31 +470,7 @@ footer a:hover {
   background-color: #45a049;
 }
 
-
-#print-button {
-  margin-top: 20px;
-}
-
-#print-button label {
-  display: block;
-  margin-bottom: 10px;
-  padding: 10px;
-  border-radius: 10px;
-  background-color: #b3d4fc;
-  color: #000000;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  text-decoration: none;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  width: 80%;
-}
-
-#print-button label:hover {
-  background-color: #90adcf;
-}
-
+/* Main Menu */
 .main-menu ul {
   list-style-type: none;
   margin: 0;
@@ -502,12 +509,14 @@ footer a:hover {
   display: block;
 }
 
+/* Language Selection */
 #language-selection {
   background-color: #f2f2f2;
   padding: 5px;
+  margin-top: 10px;
   border-radius: 5px;
-  width: 100%;
-  margin: 0 auto;
+  width: 95%;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 #language-selection label {
@@ -534,7 +543,6 @@ footer a:hover {
 #language-selection select:focus {
   outline: none;
 }
-
 
 /* Print styles */
 @media print {
@@ -581,7 +589,14 @@ footer a:hover {
     hyphens: none;
   }
 
+  .watermark {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+  }
+
   * {
     -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
 }
