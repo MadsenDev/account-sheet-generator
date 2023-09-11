@@ -35,6 +35,7 @@ if (isset($_POST['add'])) {
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+<?php include 'sidebar.php'; ?>
     <div class="content">
         <h1>Add Blocked IP</h1>
         <a href="manage_blocked.php">Back to Manage Blocked IPs</a>

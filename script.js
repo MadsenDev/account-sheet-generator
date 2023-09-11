@@ -24,6 +24,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const brandButtons = document.querySelectorAll('.brand-button');
   const selectElement = document.getElementById('language-select');
 
+  document.getElementById('add-brand-button').addEventListener('click', submitForm);
+  document.getElementById('clear-button').addEventListener('click', clearForm);
+
   var header = "Account Information";
   var eMailText = "E-mail:";
   var passwordText = "Password:";
@@ -41,6 +44,20 @@ document.addEventListener('DOMContentLoaded', function() {
   closeOverlayButton.addEventListener('click', () => {
     overlay.style.display = 'none';
   });
+
+  // Get references to the input field and submit button
+const headerInput = document.getElementById('header-input');
+const headerSubmit = document.getElementById('header-submit');
+
+// Add a click event listener to the submit button
+headerSubmit.addEventListener('click', function() {
+  // Fetch the text from the input field
+  const inputText = headerInput.value;
+
+  headerText.textContent = inputText;
+
+  // You can add additional logic here to handle the input text
+});
 
 document.querySelector('#add-watermark-button').addEventListener('click', () => {
   const input = document.createElement('input');
@@ -231,10 +248,10 @@ fetch(`get_user_type_info.php?id=${selectedUserType}`)
 
     // Loop through each field and create inputs
     data.forEach(field => {
-        const fieldLabel = document.createElement('label');
-        fieldLabel.textContent = field.label + ':';
-        fieldLabel.style.display = 'inline-block';
-        fieldLabel.style.width = '100px';
+          const fieldLabel = document.createElement('label');
+          fieldLabel.textContent = field.label + ':';
+          fieldLabel.style.display = 'inline-block';
+          fieldLabel.style.width = '100px';
 
         const fieldInput = document.createElement('input');
         fieldInput.type = field.type;
@@ -317,7 +334,14 @@ printButton.addEventListener('click', function() {
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "log_event.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    xhr.send("event=Printable Account Sheets printed");
+    let userType = getSelectedUserType(); // This calls the function and stores the result
+let language = selectedLanguage; // This gets the value of the variable
+
+// This constructs the data string
+let data = `event=Printable Account Sheets printed, userType=${userType}, language=${language}`;
+
+// Send the request
+xhr.send(data);
   };
 });
   
@@ -439,16 +463,12 @@ fieldCount++;
 }
 
 function submitForm() {
+  console.log("submitForm() called"); // Debugging statement
+  // Retrieve the values from the form
   const name = document.getElementById('name').value;
-  const logo = document.getElementById('logo').files[0];
-  const fields = [];
-
-  const fieldElements = document.querySelectorAll('#fields-container .field');
-  fieldElements.forEach((fieldElement) => {
-    const label = fieldElement.querySelector('input[name$="[label]"]').value;
-    const type = fieldElement.querySelector('select[name$="[type]"]').value;
-    fields.push({ label, type });
-  });
+  const logoFile = document.getElementById('logo').files[0];
+  console.log("Name:", name); // Debugging statement
+  console.log("Logo File:", logoFile); // Debugging statement
 
   // Create a new section with the brand logo
   const section = document.createElement('div');
@@ -456,56 +476,77 @@ function submitForm() {
   section.style.width = '100%';
 
   const brandLogo = document.createElement('img');
-  brandLogo.src = URL.createObjectURL(logo);
+  brandLogo.src = URL.createObjectURL(logoFile);
   brandLogo.alt = name;
   brandLogo.className = 'section-logo';
 
   section.appendChild(brandLogo);
 
-  // Add a title for the section. The title is the same as the brand name
+  // Add a title for the section
   const sectionTitle = document.createElement('h2');
   sectionTitle.textContent = name;
+  section.appendChild(sectionTitle);
+  sectionTitle.style.position = 'absolute';
+        sectionTitle.style.top = '0';
+        sectionTitle.style.left = '15%';
+        sectionTitle.style.transform = 'translateX(-50%)';
+        sectionTitle.style.fontSize = '20px';
 
-  fetch('/fields')
-    .then(response => response.json())
-    .then(data => {
-      // Container for input fields
-      const container = document.createElement('div');
-      container.style.display = 'flex';
-      container.style.flexDirection = 'column';
-      container.style.width = '80%';
-      container.style.marginLeft = '20px';
+  // Container for input fields
+  const container = document.createElement('div');
+  container.style.display = 'flex';
+  container.style.flexDirection = 'column';
+  container.style.width = '80%';
+  container.style.marginLeft = '20px';
 
-      // Loop through each field and create inputs
-      fields.forEach((field, index) => {
-        const fieldLabel = document.createElement('label');
-        fieldLabel.textContent = field.label + ':';
-        fieldLabel.style.display = 'inline-block';
-        fieldLabel.style.width = '100px';
+  // Get the fields from the fields-container
+  const fieldElements = document.querySelectorAll('#fields-container .field');
+  fieldElements.forEach((fieldElement) => {
+    const labelValue = fieldElement.querySelector('input[name$="[label]"]').value;
+    const typeValue = fieldElement.querySelector('select[name$="[type]"]').value;
 
-        const fieldInput = document.createElement('input');
-        fieldInput.type = field.type;
-        fieldInput.style.display = 'inline-block';
-        fieldInput.style.marginLeft = '10px';
-        fieldInput.name = `fields[${index}][value]`;
+    const fieldLabel = document.createElement('label');
+    fieldLabel.textContent = labelValue + ':';
+    fieldLabel.style.display = 'inline-block';
+    fieldLabel.style.width = '100px';
 
-        // Create a div to group the label and input, and style it
-        const fieldDiv = document.createElement('div');
-        fieldDiv.style.display = 'flex';
+    const fieldInput = document.createElement('input');
+    fieldInput.type = typeValue;
+    fieldInput.style.display = 'inline-block';
+    fieldInput.style.marginLeft = '10px';
 
-        // Append label and input to the div
-        fieldDiv.appendChild(fieldLabel);
-        fieldDiv.appendChild(fieldInput);
+    // Create a div to group the label and input, and style it
+    const fieldDiv = document.createElement('div');
+    fieldDiv.style.display = 'flex';
 
-        // Append the div to the container
-        container.appendChild(fieldDiv);
-      });
+    // Append label and input to the div
+    fieldDiv.appendChild(fieldLabel);
+    fieldDiv.appendChild(fieldInput);
 
-      // Append container to section
-      section.appendChild(container);
+    // Append the div to the container
+    container.appendChild(fieldDiv);
+  });
 
-      // Append section to your main content area
-      a4Content.appendChild(section);
-    });
+  // Append container to section
+  section.appendChild(container);
+
+  // Append section to your main content area
+  a4Content.appendChild(section);
+
+  // Hide/close the overlay
+  document.getElementById('overlay').style.display = 'none';
+  console.log("Overlay should be closed"); // Debugging statement
+}
+
+function clearForm() {
+  // Clear the text input fields
+  document.getElementById('name').value = '';
+  document.getElementById('logo').value = '';
+
+  // Clear the custom fields container
+  const fieldsContainer = document.getElementById('fields-container');
+  fieldsContainer.innerHTML = '';
+
+  // You can add additional logic here to clear other elements as needed
 }
 });

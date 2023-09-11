@@ -45,26 +45,38 @@
   transform: translate(-50%, -50%);
   background-color: white;
   padding: 20px;
-  border-radius: 5px;
-  text-align: center;
-  z-index: 10000;
-  max-width: 800px;
+  border-radius: 10px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+  max-width: 600px;
+  width: 90%;
+  text-align: left;
 }
 
-#close-overlay {
+.overlay-header,
+.overlay-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.overlay-header h2 {
+  margin: 0;
+  flex-grow: 1;
+}
+
+.action-button {
   position: absolute;
   top: 10px;
-  right: 10px;
-  z-index: 10001;
+  font-size: 20px; /* Increase font size for better visibility */
+  cursor: pointer;
+  transition: color 0.2s ease-in-out;
+  background: none; /* Remove background */
+  border: none; /* Remove border */
+  padding: 0; /* Remove padding */
 }
 
-#overlay-content h2 {
-  margin-top: 0;
-}
-
-#overlay-content form {
-  display: inline-block;
-  text-align: left;
+.action-button:hover {
+  color: #0056b3;
 }
 
 #overlay-content label {
@@ -78,16 +90,13 @@
   display: block;
   width: 100%;
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
   border-radius: 5px;
-  border: none;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 }
 
 #overlay-content button[type="button"] {
-  display: inline-block;
   padding: 10px 20px;
-  margin-right: 10px;
   border-radius: 5px;
   border: none;
   background-color: #007bff;
@@ -97,7 +106,79 @@
 }
 
 #overlay-content button[type="button"]:hover {
-  background-color: #0062cc;
+  background-color: #0056b3;
+}
+
+#clear-button {
+  right: 40px; /* Adjust to position the clear button */
+  color: #007bff;
+}
+
+#clear-button:hover {
+  color: #0056b3;
+}
+
+#close-overlay {
+  right: 10px; /* Adjust to position the close button */
+  color: #ff3333; /* Red color for close */
+}
+
+#close-overlay:hover {
+  color: #cc0000; /* Darker red on hover */
+}
+
+.addField-text {
+  color: #800080; /* Purple color */
+  cursor: pointer; /* Hand cursor to indicate it's clickable */
+  font-weight: bold; /* Bold text for emphasis */
+  font-size: 16px;
+  margin-top: 15px; /* Spacing */
+  display: inline-block; /* To add padding and hover effect */
+  padding: 5px; /* Padding for hover effect */
+  transition: background-color 0.3s ease-in-out; /* Smooth hover transition */
+  border-radius: 5px; /* Rounded corners for hover effect */
+}
+
+.addField-text:hover {
+  background-color: #f0e5ff; /* Light purple background on hover */
+}
+
+.header-container {
+  display: flex; /* Aligns the input and button horizontally */
+  border: 1px solid #ccc; /* Border around the container */
+  overflow: hidden; /* Keeps the inner elements inside the container */
+}
+
+.header-input {
+  flex-grow: 1; /* Allows the input to take up the available space */
+  border: none; /* Removes the default input border */
+  outline: none; /* Removes the default input outline */
+  padding: 5px; /* Adds some padding */
+}
+
+.header-submit {
+  background-color: #f0f0f0; /* Background color */
+  border: none; /* Removes the default button border */
+  cursor: pointer; /* Makes the button look clickable */
+  padding: 5px 10px; /* Adds some padding */
+  font-size: 10px; /* Sets the font size of the arrow */
+  width: 70px; /* Set a specific width for the button */
+  position: relative; /* Set position relative to allow absolute positioning of pseudo-element */
+}
+
+.header-submit::after {
+  content: ''; /* Empty content */
+  position: absolute; /* Absolute positioning */
+  top: 50%; /* Center vertically */
+  left: 50%; /* Center horizontally */
+  transform: translate(-50%, -50%); /* Center the element */
+  border-top: 5px solid transparent; /* Create arrow shape */
+  border-bottom: 5px solid transparent; /* Create arrow shape */
+  border-left: 10px solid black; /* Create arrow shape */
+}
+
+.header-submit:hover {
+  background-color: #e0e0e0; /* Changes the background color on hover */
 }
 
 #a4-area {

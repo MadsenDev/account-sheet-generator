@@ -46,6 +46,7 @@ $row = $result->fetch_assoc();
     <link rel="stylesheet" href="admin.css">
 </head>
 <body>
+<?php include 'sidebar.php'; ?>
     <div class="content">
         <h1>Edit Blocked IP</h1>
         <a href="manage_blocked.php">Back to Manage Blocked IPs</a>

@@ -46,27 +46,27 @@ $language_result = mysqli_query($conn, $language_query);
     <link rel="icon" href="images/favicon.png">
   </head>
   <body>
-    <div id="overlay">
-    <div id="overlay-content">
+  <div id="overlay">
+  <div id="overlay-content">
+    <div class="overlay-header">
       <h2>Add Custom Brand</h2>
-      <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" required>
-        <br>
-        <label for="logo">Logo:</label>
-        <input type="file" id="logo" accept="image/*" required>
-        <br>
-        <label>Fields:</label>
-        <div id="fields-container"></div>
-        <button type="button" onclick="addField()">Add Field</button>
-        <br>
-        <button type="button" onclick="submitForm()">Add Brand</button>
-      </form>
-      <div id="close-overlay" class="big-button">
-        <label for="close-overlay">Close</label>
-      </div>
     </div>
+    <form>
+      <label for="name">Name:</label>
+      <input type="text" id="name" required>
+      <label for="logo">Logo:</label>
+      <input type="file" id="logo" accept="image/*" required>
+      <label>Fields:</label>
+      <div id="fields-container"></div>
+      <span id="addField" onclick="addField()" class="addField-text">+ Add Field</span>
+    </form>
+    <div class="overlay-footer">
+      <button type="button" id="add-brand-button">Add Brand</button>
+    </div>
+    <div id="clear-button" class="action-button">&#x21bb;</div> <!-- Refresh symbol -->
+    <div id="close-overlay" class="action-button">×</div>
   </div>
+</div>
     <div id="wrapper">
       <div id="left-sidebar">
         <div id="site-logo">
@@ -76,6 +76,10 @@ $language_result = mysqli_query($conn, $language_query);
         <div id="print-button" class="big-button">
           <label for="print">Print</label>
         </div>
+        <div id="custom-header" class="header-container">
+  <input type="text" id="header-input" class="header-input" placeholder="Custom header">
+  <button type="button" id="header-submit" class="header-submit"></button>
+</div>
         <div id="open-overlay" class="big-button">
           <label for="open-overlay">Custom Brand (WIP)</label>
         </div>
